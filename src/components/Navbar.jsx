@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { CartContext } from '../context/CartContext'
 import { AuthContext } from '../context/AuthContext'
+import ThemeToggle from './ThemeToggle'
 
 /**
  * Navbar component
@@ -64,6 +65,10 @@ function Navbar() {
               <Link to="/login">Log ind</Link>
             </li>
           )}
+          {/* Theme toggle button for dark/light mode */}
+          <li>
+            <ThemeToggle />
+          </li>
         </ul>
       </div>
     </nav>

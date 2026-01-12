@@ -4,7 +4,7 @@
 
 **Link til Figma design:**
 ```
-INDSÆT_DIT_FIGMA_LINK_HER
+https://www.figma.com/make/DhUFr3VcydTQ9VP1paVeIz/Photography-Gallery-Webshop?t=bfdjvIrTqC6dFPnl-1
 ```
 
 > 💡 **Tip:** Når du deler dit Figma link, sørg for at linket har "view" eller "edit" adgang afhængigt af hvem der skal se det.

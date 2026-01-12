@@ -8,11 +8,12 @@
 }
 
 :root {
-  /* Color Palette */
+  /* Light Mode Color Palette (Default) */
   --color-primary: #2c3e50;
   --color-secondary: #3498db;
   --color-accent: #e74c3c;
   --color-background: #ecf0f1;
+  --color-surface: #ffffff;
   --color-text: #2c3e50;
   --color-text-light: #7f8c8d;
   --color-white: #ffffff;
@@ -37,6 +38,27 @@
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
   --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
+  
+  /* Transitions */
+  --transition-speed: 0.3s;
+}
+
+/* Dark Mode Color Palette */
+[data-theme="dark"] {
+  --color-primary: #1a252f;
+  --color-secondary: #2980b9;
+  --color-accent: #e74c3c;
+  --color-background: #0f1419;
+  --color-surface: #1a252f;
+  --color-text: #ecf0f1;
+  --color-text-light: #95a5a6;
+  --color-white: #1a252f;
+  --color-border: #34495e;
+  --color-success: #27ae60;
+  
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.5);
 }
 
 body {
@@ -44,6 +66,7 @@ body {
   color: var(--color-text);
   background-color: var(--color-background);
   line-height: 1.6;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
 .app {
@@ -63,7 +86,7 @@ body {
 /* Navbar Styles */
 .navbar {
   background-color: var(--color-primary);
-  color: var(--color-white);
+  color: #ecf0f1;
   box-shadow: var(--shadow-md);
   position: sticky;
   top: 0;
@@ -82,7 +105,7 @@ body {
 .navbar-logo {
   font-size: 1.5rem;
   font-weight: bold;
-  color: var(--color-white);
+  color: #ecf0f1;
   text-decoration: none;
 }
 
@@ -94,7 +117,7 @@ body {
 }
 
 .navbar-menu a {
-  color: var(--color-white);
+  color: #ecf0f1;
   text-decoration: none;
   transition: opacity 0.2s;
 }
@@ -112,7 +135,7 @@ body {
   top: -8px;
   right: -12px;
   background-color: var(--color-accent);
-  color: var(--color-white);
+  color: #ffffff;
   border-radius: 50%;
   width: 20px;
   height: 20px;
@@ -126,7 +149,7 @@ body {
 .btn-link {
   background: none;
   border: none;
-  color: var(--color-white);
+  color: #ecf0f1;
   cursor: pointer;
   font-size: 1rem;
   font-family: inherit;
@@ -145,7 +168,7 @@ button, .btn-primary, .btn-secondary {
 
 .btn-primary {
   background-color: var(--color-secondary);
-  color: var(--color-white);
+  color: #ffffff;
 }
 
 .btn-primary:hover:not(:disabled) {
@@ -175,7 +198,7 @@ button:disabled {
 .page-header h1 {
   font-size: 2.5rem;
   margin-bottom: var(--spacing-s);
-  color: var(--color-primary);
+  color: var(--color-text);
 }
 
 .page-header p {
@@ -190,13 +213,15 @@ button:disabled {
   gap: var(--spacing-m);
   margin-bottom: var(--spacing-xl);
   padding: var(--spacing-m);
-  background-color: var(--color-white);
+  background-color: var(--color-surface);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
 }
 
 .event-selector label {
   font-weight: 600;
+  color: var(--color-text);
 }
 
 .event-selector select {
@@ -207,6 +232,14 @@ button:disabled {
   font-family: inherit;
   flex: 1;
   max-width: 400px;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  transition: all var(--transition-speed);
+}
+
+.event-selector select:focus {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
 }
 
 /* Photo Grid */
@@ -217,11 +250,12 @@ button:disabled {
 }
 
 .photo-card {
-  background-color: var(--color-white);
+  background-color: var(--color-surface);
   border-radius: var(--border-radius);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: all var(--transition-speed);
+  border: 1px solid var(--color-border);
 }
 
 .photo-card:hover {
@@ -248,6 +282,7 @@ button:disabled {
 .photo-title {
   font-size: 1.1rem;
   margin-bottom: var(--spacing-xs);
+  color: var(--color-text);
 }
 
 .photo-description {
@@ -278,12 +313,12 @@ button:disabled {
 .photo-price {
   font-size: 1.25rem;
   font-weight: bold;
-  color: var(--color-primary);
+  color: var(--color-secondary);
 }
 
 .btn-add-to-cart {
   background-color: var(--color-success);
-  color: var(--color-white);
+  color: #ffffff;
 }
 
 .btn-add-to-cart:hover {
@@ -298,6 +333,7 @@ button:disabled {
 
 .cart-page h1 {
   margin-bottom: var(--spacing-xl);
+  color: var(--color-text);
 }
 
 .cart-page.empty {
@@ -305,12 +341,17 @@ button:disabled {
   padding: var(--spacing-xxl);
 }
 
+.cart-page.empty p {
+  color: var(--color-text);
+}
+
 .cart-items {
-  background-color: var(--color-white);
+  background-color: var(--color-surface);
   border-radius: var(--border-radius);
   padding: var(--spacing-l);
   margin-bottom: var(--spacing-l);
   box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
 }
 
 .cart-item {
@@ -339,6 +380,7 @@ button:disabled {
 .cart-item-details h3 {
   font-size: 1rem;
   margin-bottom: var(--spacing-xs);
+  color: var(--color-text);
 }
 
 .cart-item-event {
@@ -352,11 +394,17 @@ button:disabled {
   gap: var(--spacing-s);
 }
 
+.quantity {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
 .quantity-btn {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color: var(--color-border);
+  background-color: var(--color-secondary);
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -373,22 +421,28 @@ button:disabled {
   font-weight: bold;
   min-width: 80px;
   text-align: right;
+  color: var(--color-text);
 }
 
 .remove-btn {
   background-color: var(--color-accent);
-  color: var(--color-white);
+  color: #ffffff;
   width: 30px;
   height: 30px;
   border-radius: 50%;
   padding: 0;
 }
 
+.remove-btn:hover {
+  background-color: #c0392b;
+}
+
 .cart-summary {
-  background-color: var(--color-white);
+  background-color: var(--color-surface);
   border-radius: var(--border-radius);
   padding: var(--spacing-l);
   box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
 }
 
 .summary-row {
@@ -396,11 +450,13 @@ button:disabled {
   justify-content: space-between;
   margin-bottom: var(--spacing-m);
   font-size: 1.1rem;
+  color: var(--color-text);
 }
 
 .summary-row.total {
   font-size: 1.5rem;
   font-weight: bold;
+  color: var(--color-text);
   padding-top: var(--spacing-m);
   border-top: 2px solid var(--color-border);
 }
@@ -424,17 +480,19 @@ button:disabled {
 }
 
 .login-container {
-  background-color: var(--color-white);
+  background-color: var(--color-surface);
   padding: var(--spacing-xl);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-md);
   width: 100%;
   max-width: 400px;
+  border: 1px solid var(--color-border);
 }
 
 .login-container h1 {
   text-align: center;
   margin-bottom: var(--spacing-l);
+  color: var(--color-text);
 }
 
 .login-form {
@@ -451,18 +509,27 @@ button:disabled {
 
 .form-group label {
   font-weight: 600;
+  color: var(--color-text);
 }
 
-.form-group input {
+.form-group input,
+.form-group textarea,
+.form-group select {
   padding: var(--spacing-s) var(--spacing-m);
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
   font-size: 1rem;
   font-family: inherit;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  transition: all var(--transition-speed);
 }
 
-.form-group input:focus {
-  outline: none;
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
   border-color: var(--color-secondary);
 }
 
@@ -480,10 +547,12 @@ button:disabled {
   background-color: var(--color-background);
   border-radius: var(--border-radius);
   font-size: 0.9rem;
+  border: 1px solid var(--color-border);
 }
 
 .login-hint p {
   margin-bottom: var(--spacing-xs);
+  color: var(--color-text);
 }
 
 /* Login Links */
@@ -596,6 +665,7 @@ button:disabled {
 
 .admin-page h1 {
   margin-bottom: var(--spacing-xl);
+  color: var(--color-text);
 }
 
 .admin-tabs {
@@ -626,15 +696,17 @@ button:disabled {
 }
 
 .admin-content {
-  background-color: var(--color-white);
+  background-color: var(--color-surface);
   padding: var(--spacing-xl);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-sm);
   min-height: 400px;
+  border: 1px solid var(--color-border);
 }
 
 .admin-content h2 {
   margin-bottom: var(--spacing-l);
+  color: var(--color-text);
 }
 
 .admin-intro {
@@ -659,7 +731,7 @@ button:disabled {
 
 /* Create Form Styles */
 .create-form-container {
-  background-color: var(--color-background);
+  background-color: var(--color-surface);
   padding: var(--spacing-xl);
   border-radius: var(--border-radius);
   margin-bottom: var(--spacing-xl);
@@ -669,6 +741,7 @@ button:disabled {
 .create-form-container h3 {
   margin-bottom: var(--spacing-l);
   color: var(--color-secondary);
+  font-weight: 600;
 }
 
 .create-form {
@@ -703,7 +776,8 @@ button:disabled {
 .admin-table table {
   width: 100%;
   border-collapse: collapse;
-  background-color: var(--color-white);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
 }
 
 .admin-table th,
@@ -711,16 +785,17 @@ button:disabled {
   padding: var(--spacing-m);
   text-align: left;
   border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
 }
 
 .admin-table th {
   background-color: var(--color-background);
   font-weight: 600;
-  color: var(--color-primary);
+  color: var(--color-text);
 }
 
 .admin-table tbody tr:hover {
-  background-color: #f8f9fa;
+  background-color: var(--color-background);
 }
 
 .admin-thumb {
@@ -745,7 +820,7 @@ button:disabled {
 
 .btn-edit {
   background-color: var(--color-secondary);
-  color: var(--color-white);
+  color: #ffffff;
   padding: var(--spacing-s) var(--spacing-m);
   border: none;
   border-radius: var(--border-radius);
@@ -759,7 +834,7 @@ button:disabled {
 
 .btn-delete {
   background-color: var(--color-accent);
-  color: var(--color-white);
+  color: #ffffff;
   padding: var(--spacing-s) var(--spacing-m);
   border: none;
   border-radius: var(--border-radius);
@@ -796,15 +871,16 @@ button:disabled {
 .checkout-form-container {
   max-width: 600px;
   margin: var(--spacing-xl) auto;
-  background: var(--color-white);
+  background: var(--color-surface);
   padding: var(--spacing-xl);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
 }
 
 .checkout-form-container h2 {
   margin-bottom: var(--spacing-l);
-  color: var(--color-primary);
+  color: var(--color-text);
 }
 
 .checkout-form .form-group {
@@ -826,6 +902,8 @@ button:disabled {
   border-radius: var(--border-radius);
   font-size: 1rem;
   font-family: var(--font-family);
+  background-color: var(--color-surface);
+  color: var(--color-text);
 }
 
 .checkout-form textarea {
@@ -834,7 +912,7 @@ button:disabled {
 }
 
 .checkout-note {
-  background-color: #fffbea;
+  background-color: rgba(247, 201, 72, 0.1);
   border-left: 4px solid #f7c948;
   padding: var(--spacing-m);
   margin: var(--spacing-l) 0;
@@ -843,7 +921,7 @@ button:disabled {
 
 .checkout-note p {
   margin: 0;
-  color: #7d6608;
+  color: var(--color-text);
 }
 
 .checkout-actions {
@@ -895,6 +973,48 @@ button:disabled {
 .unauthorized h1 {
   color: var(--color-accent);
   margin-bottom: var(--spacing-m);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  background-color: transparent;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all var(--transition-speed);
+  padding: 0;
+}
+
+.theme-toggle:hover {
+  background-color: var(--color-surface);
+  transform: rotate(20deg);
+  border-color: var(--color-secondary);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95) rotate(20deg);
+}
+
+/* Update all white backgrounds to use surface color for dark mode */
+.photo-card,
+.cart-page,
+.cart-item,
+.cart-summary,
+.login-page,
+.forgot-password-page,
+.admin-page,
+.create-form-container,
+.admin-table,
+.event-selector,
+.checkout-form-container {
+  background-color: var(--color-surface);
+  transition: background-color var(--transition-speed);
 }
 
 /* Responsive Design */
