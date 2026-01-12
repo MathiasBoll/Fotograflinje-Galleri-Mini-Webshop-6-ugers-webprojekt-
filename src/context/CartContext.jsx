@@ -3,46 +3,54 @@ import { saveCart, loadCart } from '../services/cartService'
 
 /**
  * CartContext
- * Manages shopping cart state across the application
- * Persists cart data to localStorage
+ * Provides shopping cart state and functions to all components
+ * Handles: add, remove, update quantity, clear cart, calculate total
+ * Persists cart data to localStorage for persistence across page reloads
  */
 export const CartContext = createContext()
 
+/**
+ * CartProvider component
+ * Wraps the application to provide cart context to all child components
+ */
 export function CartProvider({ children }) {
+  // Cart state - array of cart items with photo details and quantity
   const [cart, setCart] = useState([])
 
-  // Load cart from localStorage on mount
+  // Load cart from localStorage on component mount (first render)
   useEffect(() => {
     const savedCart = loadCart()
     setCart(savedCart)
   }, [])
 
-  // Save cart to localStorage whenever it changes
+  // Save cart to localStorage whenever cart state changes
   useEffect(() => {
     saveCart(cart)
   }, [cart])
 
   /**
-   * Add item to cart or increase quantity if already exists
+   * Add item to cart or increase quantity if item already exists
+   * @param {Object} photo - Photo object from API
    */
   const addToCart = (photo) => {
     setCart(prevCart => {
-      // Ensure photo has an id (_id from API or id from mock)
+      // Handle both MongoDB (_id) and mock data (id) field names
       const photoId = photo._id || photo.id
+      // Check if item already exists in cart
       const existingItem = prevCart.find(item => (item._id || item.id) === photoId)
       
       if (existingItem) {
-        // Item already in cart, increase quantity
+        // Item already in cart - increase quantity by 1
         return prevCart.map(item =>
           (item._id || item.id) === photoId
             ? { ...item, quantity: item.quantity + 1 }
             : item
         )
       } else {
-        // New item, add to cart with default price if not present
+        // New item - add to cart with default price if API doesn't provide one
         return [...prevCart, { 
           ...photo, 
-          price: photo.price || 299, // Default price if not provided by API
+          price: photo.price || 299, // Default price: 299 DKK
           quantity: 1 
         }]
       }
@@ -50,14 +58,17 @@ export function CartProvider({ children }) {
   }
 
   /**
-   * Remove item from cart
+   * Remove item completely from cart
+   * @param {string} photoId - ID of photo to remove (_id or id)
    */
   const removeFromCart = (photoId) => {
     setCart(prevCart => prevCart.filter(item => (item._id || item.id) !== photoId))
   }
 
   /**
-   * Update item quantity
+   * Update quantity of a specific item
+   * @param {string} photoId - ID of photo to update
+   * @param {number} quantity - New quantity (if 0 or less, item is removed)
    */
   const updateQuantity = (photoId, quantity) => {
     if (quantity <= 0) {
@@ -73,29 +84,34 @@ export function CartProvider({ children }) {
 
   /**
    * Clear all items from cart
+   * Used after checkout or when user wants to start over
    */
   const clearCart = () => {
     setCart([])
   }
 
   /**
-   * Get total price of all items in cart
+   * Calculate total price of all items in cart
+   * @returns {number} Total price in DKK
    */
   const getTotalPrice = () => {
     return cart.reduce((total, item) => {
+      // Ensure price and quantity are numbers with fallback values
       const price = Number(item.price) || 299
       const quantity = Number(item.quantity) || 0
       return total + (price * quantity)
     }, 0)
   }
 
+  // Value object containing all cart state and functions
+  // This is provided to all child components via Context
   const value = {
-    cart,
-    addToCart,
-    removeFromCart,
-    updateQuantity,
-    clearCart,
-    getTotalPrice
+    cart,              // Current cart array
+    addToCart,         // Function to add items
+    removeFromCart,    // Function to remove items
+    updateQuantity,    // Function to update item quantity
+    clearCart,         // Function to empty cart
+    getTotalPrice      // Function to calculate total
   }
 
   return (

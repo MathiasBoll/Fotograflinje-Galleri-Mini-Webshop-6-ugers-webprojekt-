@@ -71,7 +71,29 @@ Et 6-ugers webprojekt der kombinerer JavaScript interaktivitet, indkøbskurv, CR
 ✅ **Ekstern API integration** - Henter data fra DigitalOcean API  
 
 ---
+## 💬 Kode Kommentarer
 
+Alle komponenter og funktioner er grundigt kommenteret for at gøre koden let at forstå:
+
+- **JSDoc kommentarer** på alle funktioner med parametre og return værdier
+- **Inline kommentarer** der forklarer kompleks logik
+- **Component beskrivelser** øverst i hver fil
+- **Props dokumentation** for alle komponenter
+
+Eksempel fra CartContext:
+```javascript
+/**
+ * Add item to cart or increase quantity if item already exists
+ * @param {Object} photo - Photo object from API
+ */
+const addToCart = (photo) => {
+  // Handle both MongoDB (_id) and mock data (id) field names
+  const photoId = photo._id || photo.id
+  ...
+}
+```
+
+---
 ## � Screenshots
 
 ### Homepage & Galleri
