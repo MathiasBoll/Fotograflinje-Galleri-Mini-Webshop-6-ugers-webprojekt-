@@ -69,7 +69,7 @@ const AdminUpload = () => {
       // Reset form
       setFormData({ title: '', price: '', eventId: '1' });
       setPreview(null);
-    } catch {
+    } catch (error) {
       setMessage({ 
         type: 'error', 
         text: 'Failed to upload photo. Please try again.' 

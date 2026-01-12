@@ -36,7 +36,7 @@ const Gallery = () => {
       
       setPhotos(photosWithMetadata);
       setLoading(false);
-    } catch {
+    } catch (error) {
       setError('Failed to load photos. Using demo data.');
       setLoading(false);
       loadDemoPhotos();
@@ -53,7 +53,7 @@ const Gallery = () => {
         await loadPhotos(eventsData[0].id);
       }
       setLoading(false);
-    } catch {
+    } catch (error) {
       setError('Failed to load events. Using demo data.');
       setLoading(false);
       // Demo data for when API is unavailable

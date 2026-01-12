@@ -35,7 +35,7 @@ const AdminManage = () => {
       }
       
       setLoading(false);
-    } catch {
+    } catch (error) {
       setMessage({ 
         type: 'error', 
         text: 'Failed to load photos' 
@@ -67,7 +67,7 @@ const AdminManage = () => {
       setTimeout(() => {
         setMessage({ type: '', text: '' });
       }, 3000);
-    } catch {
+    } catch (error) {
       setMessage({ 
         type: 'error', 
         text: 'Failed to delete photo' 
