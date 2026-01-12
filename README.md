@@ -72,12 +72,94 @@ Et 6-ugers webprojekt der kombinerer JavaScript interaktivitet, indkøbskurv, CR
 
 ---
 
+## � Screenshots
+
+### Homepage & Galleri
+![Homepage med fotogalleri](docs/screenshots/01-homepage-gallery.png)
+*Gallerisiden viser fotos fra DigitalOcean API med event filtering*
+
+### Indkøbskurv
+![Shopping cart](docs/screenshots/02-shopping-cart.png)
+*Kurven viser valgte fotos med quantity controls og total pris*
+
+### Login Side
+![Login page](docs/screenshots/03-login-page.png)
+*Login med demo credentials og "Glemt adgangskode" link*
+
+### Admin - Photo Management
+![Admin photos](docs/screenshots/04-admin-photos.png)
+*Admin panel til at oprette og slette fotos*
+
+### Admin - Event Management
+![Admin events](docs/screenshots/05-admin-events.png)
+*Admin panel til at administrere events*
+
+### Glemt Adgangskode
+![Forgot password](docs/screenshots/06-forgot-password.png)
+*Password reset flow med email input og success besked*
+
+---
+
+## 🧪 Hvordan man tester
+
+### 1. Installation
+```bash
+npm install
+npm run dev
+```
+
+### 2. Test hovedfunktioner
+
+**Galleri:**
+- Åbn homepage
+- Vælg forskellige events fra dropdown
+- Klik på "Køb" knappen på et foto
+
+**Indkøbskurv:**
+- Tilføj flere fotos
+- Juster quantity med +/- knapper
+- Fjern items med "Fjern" knap
+- Se total pris opdateres dynamisk
+
+**Authentication:**
+- Klik "Login" i navigation
+- Brug credentials: `admin` / `password123`
+- Test "Glemt adgangskode?" link
+- Indtast en email (f.eks. admin@example.com)
+- Se success besked og auto-redirect efter 5 sekunder
+- Efter redirect, log ind normalt
+
+**Admin CRUD:**
+- Log ind som admin
+- **Photos tab:**
+  - Opret nyt foto med titel, URL og event
+  - Slet et foto (bekræft dialog)
+- **Events tab:**
+  - Opret ny event med titel, slug, beskrivelse og datoer
+  - Slet en event
+  - Se events opdateres i photo dropdown
+
+**Persistence:**
+- Tilføj items til kurv
+- Refresh browseren
+- Verificer at kurven stadig indeholder items (localStorage)
+
+---
+
+## 📚 Dokumentation
+
+Se detaljeret dokumentation i `docs/` mappen:
+
+- [Opgavebeskrivelse](docs/opgavebeskrivelse.md) - Komplet projektbeskrivelse og krav
+- [Projektplan](docs/projektplan.md) - Planlægning og tidsestimering
+- [Projektplan Detaljer](docs/projektplan-detaljer.md) - Uge-for-uge proceslogbog og Kanban workflow
+- [Refleksion](docs/refleksion.md) - Proces, udfordringer og læring
+- [API Dokumentation](docs/api-dokumentation.md) - API endpoints og data struktur
+
+---
+
 ## 👨‍💻 Udviklet af
 
 [Dit navn] - Fotograflinje studerende
 
 **Projekt periode:** 6 uger (2026)
-
-## 📅 Projekt periode
-
-6 uger (2026)

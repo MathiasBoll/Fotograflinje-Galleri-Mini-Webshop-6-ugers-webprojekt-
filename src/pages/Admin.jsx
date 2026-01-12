@@ -9,6 +9,7 @@ import { fetchPhotos, fetchEvents } from '../services/apiService'
 function Admin() {
   const [photos, setPhotos] = useState([])
   const [events, setEvents] = useState([])
+  const [orders, setOrders] = useState([])
   const [activeTab, setActiveTab] = useState('photos')
   const [showCreateForm, setShowCreateForm] = useState(false)
   const [showCreateEventForm, setShowCreateEventForm] = useState(false)
@@ -30,6 +31,7 @@ function Admin() {
 
   useEffect(() => {
     loadData()
+    loadOrders()
   }, [])
 
   const loadData = async () => {
@@ -44,6 +46,11 @@ function Admin() {
     } catch (error) {
       console.error('Error loading admin data:', error)
     }
+  }
+
+  const loadOrders = () => {
+    const savedOrders = JSON.parse(localStorage.getItem('orders') || '[]')
+    setOrders(savedOrders)
   }
 
   // CREATE - Add new photo
@@ -147,7 +154,7 @@ function Admin() {
           className={activeTab === 'orders' ? 'active' : ''}
           onClick={() => setActiveTab('orders')}
         >
-          Ordrer
+          Ordrer ({orders.length})
         </button>
       </div>
 
@@ -433,9 +440,80 @@ function Admin() {
 
         {activeTab === 'orders' && (
           <div className="orders-admin">
-            <h2>Ordrer</h2>
-            <p>Her kan du se og administrere kundeordrer.</p>
-            {/* Orders list would go here */}
+            <div className="admin-header">
+              <h2>Ordrer</h2>
+              <button className="btn-secondary" onClick={loadOrders}>
+                🔄 Opdater
+              </button>
+            </div>
+
+            {orders.length === 0 ? (
+              <div className="empty-state">
+                <p>Ingen ordrer endnu.</p>
+                <p className="hint">Ordrer vil blive vist her når kunder gennemfører checkout.</p>
+              </div>
+            ) : (
+              <table className="admin-table">
+                <thead>
+                  <tr>
+                    <th>Ordre ID</th>
+                    <th>Kunde</th>
+                    <th>Email</th>
+                    <th>Telefon</th>
+                    <th>Antal Items</th>
+                    <th>Total</th>
+                    <th>Dato</th>
+                    <th>Status</th>
+                    <th>Detaljer</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orders.map(order => (
+                    <tr key={order.id}>
+                      <td>{order.id.substring(6, 16)}...</td>
+                      <td>{order.customer.name}</td>
+                      <td>{order.customer.email}</td>
+                      <td>{order.customer.phone}</td>
+                      <td>{order.items.length} items</td>
+                      <td>{order.total} kr.</td>
+                      <td>{new Date(order.date).toLocaleDateString('da-DK', { 
+                        day: '2-digit', 
+                        month: '2-digit', 
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                      })}</td>
+                      <td>
+                        <span className={`status-badge ${order.status}`}>
+                          {order.status === 'pending' ? '⏳ Afventer' : '✓ Behandlet'}
+                        </span>
+                      </td>
+                      <td className="action-buttons">
+                        <button 
+                          className="btn-view"
+                          onClick={() => {
+                            const details = order.items.map(item => 
+                              `${item.quantity}x ${item.title} - ${item.price} kr.`
+                            ).join('\n')
+                            alert(
+                              `Ordre Detaljer:\n\n` +
+                              `Kunde: ${order.customer.name}\n` +
+                              `Email: ${order.customer.email}\n` +
+                              `Telefon: ${order.customer.phone}\n` +
+                              `Adresse: ${order.customer.address}\n\n` +
+                              `Items:\n${details}\n\n` +
+                              `Total: ${order.total} kr.`
+                            )
+                          }}
+                        >
+                          👁️ Se detaljer
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
           </div>
         )}
       </div>
