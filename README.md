@@ -17,8 +17,7 @@ Et 6-ugers webprojekt der kombinerer JavaScript interaktivitet, indkøbskurv, CR
 
 ## 🔗 Links
 
-- **GitHub:** https://github.com/DIT_BRUGERNAVN/DIT_REPO
-- **Figma:** INDSÆT_FIGMA_LINK
+- **GitHub:** https://github.com/MathiasBoll/Fotograflinje-Galleri-Mini-Webshop-6-ugers-webprojekt-
 - **API:** https://photobooth-lx7n9.ondigitalocean.app
 
 ---
