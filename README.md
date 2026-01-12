@@ -182,6 +182,6 @@ Se detaljeret dokumentation i `docs/` mappen:
 
 ## 👨‍💻 Udviklet af
 
-[Dit navn] - Fotograflinje studerende
+Mathias Boll
 
 **Projekt periode:** 6 uger (2026)
