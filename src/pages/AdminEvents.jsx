@@ -100,11 +100,11 @@ function AdminEvents() {
       <div className="events-list">
         {events.length === 0 ? (
           <div className="empty-state">
-            <p>Ingen events endnu. Opret dit første event for at komme i gang.</p>
+            <p>Ingen events endnu. Klik på "Opret event" for at komme i gang.</p>
           </div>
         ) : (
           events.map(event => (
-            <div key={event.id} className="event-card">
+            <div key={event._id || event.id} className="event-card">
               <div className="event-card-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>

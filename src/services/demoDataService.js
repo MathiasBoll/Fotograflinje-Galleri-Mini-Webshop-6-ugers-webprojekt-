@@ -211,7 +211,19 @@ export const exportOrdersToCSV = (orders) => {
 }
 
 // Statistics
-export const getOrderStats = (orders) => {
+export const getOrderStats = () => {
+  const orders = getOrders()
+  
+  if (!orders || orders.length === 0) {
+    return {
+      totalRevenue: 0,
+      pending: 0,
+      processing: 0,
+      completed: 0,
+      totalOrders: 0
+    }
+  }
+  
   const total = orders.reduce((sum, order) => sum + order.total, 0)
   const pending = orders.filter(o => o.status === 'pending').length
   const processing = orders.filter(o => o.status === 'processing').length
@@ -226,7 +238,8 @@ export const getOrderStats = (orders) => {
   }
 }
 
-export const getEventStats = (events) => {
+export const getEventStats = () => {
+  const events = getDemoEvents()
   const total = events.length
   const active = events.filter(e => e.active).length
   const upcoming = events.filter(e => 
