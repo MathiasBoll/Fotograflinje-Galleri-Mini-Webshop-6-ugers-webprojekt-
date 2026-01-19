@@ -1,16 +1,18 @@
 import { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import { CartContext } from '../context/CartContext'
 import { formatPrice } from '../utils/formatPrice'
 
 /**
  * PhotoCard component
  * Individual photo card displayed in the gallery grid
- * Shows thumbnail, title, date, price, and "Add to cart" button
+ * Shows thumbnail, title, photographer, year, event, price, and "Add to cart" button
  * 
  * Props:
  * @param {Object} photo - Photo object from API containing all photo data
+ * @param {Boolean} featured - Whether this photo is featured
  */
-function PhotoCard({ photo }) {
+function PhotoCard({ photo, featured = false }) {
   // Get addToCart function from CartContext
   const { addToCart } = useContext(CartContext)
 
@@ -22,23 +24,32 @@ function PhotoCard({ photo }) {
     addToCart(photo)
   }
 
+  // Extract photographer name and year from photo data
+  const photographer = photo.photographer || 'Ukendt Fotograf'
+  const year = photo.year || new Date(photo.uploadedAt).getFullYear()
+  const eventName = photo.eventName || photo.event || 'Generelt'
+
   return (
-    <div className="photo-card">
+    <div className={`photo-card ${featured ? 'photo-card-featured' : ''}`}>
       {/* Photo thumbnail - use thumbUrl for smaller file size, fallback to full url */}
-      <div className="photo-image">
+      <Link to={`/photo/${photo._id}`} className="photo-image">
+        {featured && <span className="featured-badge">Udvalgt værk</span>}
         <img src={photo.thumbUrl || photo.url} alt={photo.originalFilename} />
-      </div>
+      </Link>
       
       <div className="photo-info">
         {/* Photo title/filename */}
         <h3 className="photo-title">{photo.originalFilename}</h3>
         
-        {/* Upload date formatted in Danish */}
-        <p className="photo-date">{new Date(photo.uploadedAt).toLocaleDateString('da-DK')}</p>
+        {/* Photographer and year */}
+        <p className="photo-meta">{photographer} · Årgang {year}</p>
+        
+        {/* Event name */}
+        <p className="photo-event">{eventName}</p>
         
         <div className="photo-footer">
           {/* Price formatted as Danish currency (299 kr.) */}
-          <span className="photo-price">{formatPrice(photo.price || 299)}</span>
+          <span className="photo-price">Print fra {formatPrice(photo.price || 299)}</span>
           
           {/* Add to cart button */}
           <button 

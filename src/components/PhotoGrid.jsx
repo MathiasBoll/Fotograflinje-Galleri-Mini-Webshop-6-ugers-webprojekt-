@@ -7,8 +7,9 @@ import PhotoCard from './PhotoCard'
  * 
  * Props:
  * @param {Array} photos - Array of photo objects to display
+ * @param {Boolean} featured - Whether this grid shows featured photos
  */
-function PhotoGrid({ photos }) {
+function PhotoGrid({ photos, featured = false }) {
   // Validate that photos is an array and has items
   // This prevents crashes if API returns null/undefined or empty array
   if (!photos || !Array.isArray(photos) || photos.length === 0) {
@@ -20,10 +21,10 @@ function PhotoGrid({ photos }) {
   }
 
   return (
-    <div className="photo-grid">
+    <div className={`photo-grid ${featured ? 'photo-grid-featured' : ''}`}>
       {/* Map through photos and render a PhotoCard for each one */}
       {photos.map(photo => (
-        <PhotoCard key={photo._id} photo={photo} />
+        <PhotoCard key={photo._id} photo={photo} featured={featured} />
       ))}
     </div>
   )

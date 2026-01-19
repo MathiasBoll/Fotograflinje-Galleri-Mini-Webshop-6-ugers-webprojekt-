@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { CartContext } from '../context/CartContext'
 import CartItem from '../components/CartItem'
 import { formatPrice } from '../utils/formatPrice'
@@ -7,6 +7,7 @@ import { formatPrice } from '../utils/formatPrice'
 /**
  * Cart page component
  * Displays shopping cart items and checkout functionality
+ * Matches Figma design with two-column layout
  */
 function Cart() {
   const { cart, getTotalPrice, clearCart } = useContext(CartContext)
@@ -51,41 +52,75 @@ function Cart() {
 
   if (cart.length === 0) {
     return (
-      <div className="cart-page empty">
-        <h1>Indkøbskurv</h1>
-        <p>Din indkøbskurv er tom</p>
-        <button onClick={() => navigate('/')}>Fortsæt med at browse</button>
+      <div className="cart-page">
+        <nav className="breadcrumbs">
+          <Link to="/">Gallerier</Link>
+          <span className="breadcrumb-separator">/</span>
+          <span>Kurv</span>
+        </nav>
+        
+        <div className="cart-empty">
+          <h1>Din kurv</h1>
+          <p>Din indkøbskurv er tom. Find de perfekte billeder i vores galleri.</p>
+          <button className="btn-primary" onClick={() => navigate('/')}>
+            Fortsæt med at browse
+          </button>
+        </div>
       </div>
     )
   }
 
   return (
     <div className="cart-page">
-      <h1>Indkøbskurv</h1>
-      
-      <div className="cart-items">
-        {cart.map(item => (
-          <CartItem key={item._id || item.id} item={item} />
-        ))}
-      </div>
+      <nav className="breadcrumbs">
+        <Link to="/">Gallerier</Link>
+        <span className="breadcrumb-separator">/</span>
+        <span>Kurv</span>
+      </nav>
 
-      <div className="cart-summary">
-        <div className="summary-row">
-          <span>Subtotal:</span>
-          <span>{formatPrice(getTotalPrice())}</span>
-        </div>
-        <div className="summary-row total">
-          <span>Total:</span>
-          <span>{formatPrice(getTotalPrice())}</span>
+      <header className="cart-header">
+        <h1>Din kurv</h1>
+        <p>Gennemse dine valgte billeder og fortsæt til bestilling</p>
+      </header>
+
+      <div className="cart-layout">
+        {/* Left: Cart Items */}
+        <div className="cart-items-section">
+          {cart.map(item => (
+            <CartItem key={item._id || item.id} item={item} />
+          ))}
         </div>
 
-        <div className="cart-actions">
-          <button className="btn-secondary" onClick={clearCart}>
-            Tøm kurv
-          </button>
-          <button className="btn-primary" onClick={() => setShowCheckoutForm(!showCheckoutForm)}>
-            {showCheckoutForm ? 'Skjul checkout' : 'Gå til betaling'}
-          </button>
+        {/* Right: Summary Box */}
+        <div className="cart-summary-section">
+          <div className="cart-summary-box">
+            <h3>Oversigt</h3>
+            
+            <div className="summary-row">
+              <span>Subtotal</span>
+              <span>{formatPrice(getTotalPrice())}</span>
+            </div>
+            
+            <div className="summary-row">
+              <span>Levering</span>
+              <span>Beregnes ved checkout</span>
+            </div>
+            
+            <div className="summary-divider"></div>
+            
+            <div className="summary-row summary-total">
+              <span>Total</span>
+              <span>{formatPrice(getTotalPrice())}</span>
+            </div>
+
+            <button className="btn-primary btn-checkout" onClick={() => setShowCheckoutForm(!showCheckoutForm)}>
+              {showCheckoutForm ? 'Skjul formular' : 'Gå til bestilling'}
+            </button>
+
+            <div className="cart-note">
+              <p>Demo – ingen betaling påkrævet</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -139,10 +174,6 @@ function Cart() {
                 placeholder="Gadenavn 123, 1234 By"
                 rows="3"
               />
-            </div>
-
-            <div className="checkout-note">
-              <p><strong>Note:</strong> Dette er en demo webshop. Ingen reel betaling vil blive behandlet.</p>
             </div>
 
             <div className="checkout-actions">

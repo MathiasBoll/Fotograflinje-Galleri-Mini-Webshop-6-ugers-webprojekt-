@@ -39,8 +39,12 @@ function CartItem({ item }) {
       <div className="cart-item-details">
         {/* Display photo title/filename */}
         <h3>{item.originalFilename || item.title}</h3>
-        {/* Show event name if available */}
-        <p className="cart-item-event">{item.eventName || ''}</p>
+        {/* Show photographer and event if available */}
+        <p className="cart-item-meta">
+          {item.photographer && <span>{item.photographer}</span>}
+          {item.photographer && item.printType && <span> · </span>}
+          {item.printType && <span>{item.printType}</span>}
+        </p>
       </div>
 
       {/* Quantity controls: - / number / + */}
@@ -50,7 +54,7 @@ function CartItem({ item }) {
           className="quantity-btn"
           title="Reducer antal"
         >
-          -
+          −
         </button>
         <span className="quantity">{item.quantity}</span>
         <button 
