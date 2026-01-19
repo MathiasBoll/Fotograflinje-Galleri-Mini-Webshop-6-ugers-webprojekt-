@@ -226,6 +226,28 @@ button, .btn-primary, .btn-secondary {
   border-color: #e85a25;
 }
 
+.btn-success {
+  background-color: #27ae60;
+  color: #ffffff;
+  border: 1px solid #27ae60;
+}
+
+.btn-success:hover:not(:disabled) {
+  background-color: #229954;
+  border-color: #229954;
+}
+
+.btn-danger {
+  background-color: #e74c3c;
+  color: #ffffff;
+  border: 1px solid #e74c3c;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: #c0392b;
+  border-color: #c0392b;
+}
+
 .btn-secondary {
   background-color: transparent;
   color: var(--color-text);
@@ -2068,6 +2090,11 @@ button:disabled {
   color: #0c5460;
 }
 
+.badge-danger {
+  background: #f8d7da;
+  color: #721c24;
+}
+
 .badge-default {
   background: var(--color-background);
   color: var(--color-text-muted);
@@ -2361,6 +2388,64 @@ button:disabled {
 .checkbox-label input[type="checkbox"] {
   width: auto;
   cursor: pointer;
+}
+
+/* File Upload Styles */
+.file-upload-area {
+  margin-top: var(--spacing-s);
+}
+
+.file-upload-label {
+  display: block;
+  border: 2px dashed var(--color-border);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-xxl);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: var(--color-background);
+}
+
+.file-upload-label:hover {
+  border-color: var(--color-accent);
+  background: var(--color-surface);
+}
+
+.file-upload-label svg {
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-m);
+}
+
+.file-upload-label p {
+  margin: var(--spacing-s) 0;
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.file-hint {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted) !important;
+  font-weight: 400 !important;
+}
+
+.file-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-m);
+}
+
+.file-preview img {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: var(--border-radius);
+  object-fit: contain;
+}
+
+.file-name {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  word-break: break-all;
 }
 
 /* Outlined Button Variant */

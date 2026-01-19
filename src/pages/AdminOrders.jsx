@@ -4,7 +4,7 @@ import { formatPrice } from '../utils/formatPrice';
 
 function AdminOrders() {
   const [orders, setOrders] = useState([]);
-  const [stats, setStats] = useState({ totalRevenue: 0, pending: 0, processing: 0, completed: 0 });
+  const [stats, setStats] = useState({ totalRevenue: 0, pending: 0, processing: 0, completed: 0, cancelled: 0 });
   const [statusFilter, setStatusFilter] = useState('all');
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [showEmailModal, setShowEmailModal] = useState(false);
@@ -30,7 +30,7 @@ function AdminOrders() {
   };
 
   const handleExport = () => {
-    exportOrdersToCSV();
+    exportOrdersToCSV(orders);
   };
 
   const handleViewOrder = (order) => {
@@ -62,7 +62,8 @@ function AdminOrders() {
     const statusMap = {
       pending: 'badge-warning',
       processing: 'badge-info',
-      completed: 'badge-success'
+      completed: 'badge-success',
+      cancelled: 'badge-danger'
     };
     return statusMap[status] || 'badge-default';
   };
@@ -71,7 +72,8 @@ function AdminOrders() {
     const labels = {
       pending: 'Afventende',
       processing: 'Under behandling',
-      completed: 'Afsluttet'
+      completed: 'Afsluttet',
+      cancelled: 'Annulleret'
     };
     return labels[status] || status;
   };
@@ -114,6 +116,10 @@ function AdminOrders() {
           <div className="stat-label">Afsluttet</div>
           <div className="stat-value">{stats.completed}</div>
         </div>
+        <div className="stat-card">
+          <div className="stat-label">Annulleret</div>
+          <div className="stat-value">{stats.cancelled}</div>
+        </div>
       </div>
 
       {/* Filter */}
@@ -129,6 +135,7 @@ function AdminOrders() {
           <option value="pending">Afventende</option>
           <option value="processing">Under behandling</option>
           <option value="completed">Afsluttet</option>
+          <option value="cancelled">Annulleret</option>
         </select>
       </div>
 
@@ -312,12 +319,49 @@ function AdminOrders() {
                 </svg>
                 Send e-mail til kunde
               </button>
-              <button 
-                className="btn btn-primary"
-                onClick={() => setSelectedOrder(null)}
-              >
-                Luk
-              </button>
+              
+              <div style={{ marginLeft: 'auto', display: 'flex', gap: '0.5rem' }}>
+                {selectedOrder.status !== 'cancelled' && (
+                  <button 
+                    className="btn btn-danger"
+                    onClick={() => {
+                      if (confirm('Er du sikker på, at du vil annullere denne ordre?')) {
+                        handleStatusChange(selectedOrder.id, 'cancelled');
+                        setSelectedOrder(null);
+                      }
+                    }}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="10"/>
+                      <line x1="15" y1="9" x2="9" y2="15"/>
+                      <line x1="9" y1="9" x2="15" y2="15"/>
+                    </svg>
+                    Annuller ordre
+                  </button>
+                )}
+                
+                {selectedOrder.status !== 'completed' && selectedOrder.status !== 'cancelled' && (
+                  <button 
+                    className="btn btn-success"
+                    onClick={() => {
+                      handleStatusChange(selectedOrder.id, 'completed');
+                      setSelectedOrder(null);
+                    }}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    Afslut ordre
+                  </button>
+                )}
+                
+                <button 
+                  className="btn btn-outlined"
+                  onClick={() => setSelectedOrder(null)}
+                >
+                  Luk
+                </button>
+              </div>
             </div>
           </div>
         </div>

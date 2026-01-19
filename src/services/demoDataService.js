@@ -181,8 +181,16 @@ export const deleteDemoEvent = (id) => {
 
 // Export orders to CSV
 export const exportOrdersToCSV = (orders) => {
+  // Fetch orders internally if not provided
+  const ordersToExport = orders || getOrders()
+  
+  if (!ordersToExport || ordersToExport.length === 0) {
+    console.warn('No orders to export')
+    return
+  }
+  
   const headers = ['Ordre ID', 'Kunde', 'E-mail', 'Telefon', 'Total', 'Dato', 'Status']
-  const rows = orders.map(order => [
+  const rows = ordersToExport.map(order => [
     order.id,
     order.customer.name,
     order.customer.email,
@@ -220,6 +228,7 @@ export const getOrderStats = () => {
       pending: 0,
       processing: 0,
       completed: 0,
+      cancelled: 0,
       totalOrders: 0
     }
   }
@@ -228,12 +237,14 @@ export const getOrderStats = () => {
   const pending = orders.filter(o => o.status === 'pending').length
   const processing = orders.filter(o => o.status === 'processing').length
   const completed = orders.filter(o => o.status === 'completed').length
+  const cancelled = orders.filter(o => o.status === 'cancelled').length
 
   return {
     totalRevenue: total,
     pending,
     processing,
     completed,
+    cancelled,
     totalOrders: orders.length
   }
 }
