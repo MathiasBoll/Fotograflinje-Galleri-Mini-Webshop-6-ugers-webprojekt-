@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 100" width="500" height="100">
+  <!-- Teal slanted bar -->
+  <polygon points="125,10 140,5 147,45 132,50" fill="#0D7680" stroke="#0D7680" stroke-width="1"/>
+  
+  <!-- Orange slanted bar -->
+  <polygon points="155,10 170,5 177,45 162,50" fill="#F7941D" stroke="#F7941D" stroke-width="1"/>
+  
+  <!-- Coral/Orange triangle -->
+  <polygon points="212,8 244,58 180,58" fill="#FF6B35" stroke="#FF6B35" stroke-width="1"/>
+  
+  <!-- Text -->
+  <text x="0" y="75" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="bold" fill="#1a1a1a">Media College</text>
+  <text x="233" y="75" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="300" fill="#1a1a1a">Denmark</text>
+</svg>

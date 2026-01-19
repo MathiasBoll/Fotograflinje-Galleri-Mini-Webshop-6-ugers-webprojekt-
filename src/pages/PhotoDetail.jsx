@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { fetchPhotos } from '../services/apiService'
 import { CartContext } from '../context/CartContext'
 import { formatPrice } from '../utils/formatPrice'
@@ -66,9 +67,66 @@ function PhotoDetail() {
   const photographer = photo.photographer || 'Ukendt Fotograf'
   const year = photo.year || new Date(photo.uploadedAt).getFullYear()
   const eventName = photo.eventName || photo.event || 'Generelt'
+  const photoTitle = photo.originalFilename || 'Kunstfotografi'
+  const photoDescription = `Køb ${photoTitle} af ${photographer}. Tilgængelig som digital download eller print i A4 og A2 format. Museumskvalitet, signeret af fotografen.`
+
+  // JSON-LD Product Schema
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": photoTitle,
+    "image": photo.url,
+    "description": photoDescription,
+    "brand": {
+      "@type": "Organization",
+      "name": "Media College Denmark"
+    },
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "DKK",
+      "lowPrice": "299",
+      "highPrice": "799",
+      "availability": "https://schema.org/InStock"
+    },
+    "creator": {
+      "@type": "Person",
+      "name": photographer
+    }
+  }
 
   return (
-    <div className="photo-detail-page">
+    <>
+      <Helmet>
+        <title>{photoTitle} af {photographer} – Køb Print | Media College Denmark</title>
+        <meta name="description" content={photoDescription} />
+        <link rel="canonical" href={`https://photography.mediacollege.dk/photo/${id}`} />
+        
+        {/* Open Graph */}
+        <meta property="og:type" content="product" />
+        <meta property="og:title" content={`${photoTitle} af ${photographer}`} />
+        <meta property="og:description" content={photoDescription} />
+        <meta property="og:url" content={`https://photography.mediacollege.dk/photo/${id}`} />
+        <meta property="og:site_name" content="Media College Denmark – Fotografuddannelsen" />
+        <meta property="og:image" content={photo.url} />
+        <meta property="og:image:alt" content={photoTitle} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="product:price:amount" content="299" />
+        <meta property="product:price:currency" content="DKK" />
+        
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${photoTitle} af ${photographer}`} />
+        <meta name="twitter:description" content={photoDescription} />
+        <meta name="twitter:image" content={photo.url} />
+        
+        {/* JSON-LD */}
+        <script type="application/ld+json">
+          {JSON.stringify(productSchema)}
+        </script>
+      </Helmet>
+
+      <div className="photo-detail-page">{/* Breadcrumbs */}
       {/* Breadcrumbs */}
       <nav className="breadcrumbs">
         <Link to="/">Gallerier</Link>
@@ -136,7 +194,8 @@ function PhotoDetail() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   )
 }
 

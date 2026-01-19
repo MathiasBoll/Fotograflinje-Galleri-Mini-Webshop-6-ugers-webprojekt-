@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import { CartContext } from '../context/CartContext'
 import CartItem from '../components/CartItem'
 import { formatPrice } from '../utils/formatPrice'
+import { sendOrderConfirmationEmail } from '../services/emailService'
 
 /**
  * Cart page component
@@ -13,6 +14,7 @@ function Cart() {
   const { cart, getTotalPrice, clearCart } = useContext(CartContext)
   const navigate = useNavigate()
   const [showCheckoutForm, setShowCheckoutForm] = useState(false)
+  const [isProcessing, setIsProcessing] = useState(false)
   const [customerInfo, setCustomerInfo] = useState({
     name: '',
     email: '',
@@ -20,34 +22,62 @@ function Cart() {
     address: ''
   })
 
-  const handleCheckout = (e) => {
+  const handleCheckout = async (e) => {
     e.preventDefault()
     
-    // Create order object
-    const order = {
-      id: 'order-' + Date.now(),
-      customer: customerInfo,
-      items: cart.map(item => ({
-        id: item._id || item.id,
-        title: item.originalFilename || item.title,
-        quantity: item.quantity,
-        price: item.price,
-        thumbnail: item.thumbUrl || item.thumbnail || item.url
-      })),
-      total: getTotalPrice(),
-      date: new Date().toISOString(),
-      status: 'pending'
+    setIsProcessing(true)
+
+    try {
+      // Create order object
+      const order = {
+        id: 'ORD-' + Date.now(),
+        customer: customerInfo,
+        items: cart.map(item => ({
+          id: item._id || item.id,
+          title: item.originalFilename || item.title,
+          quantity: item.quantity,
+          price: item.price,
+          thumbnail: item.thumbUrl || item.thumbnail || item.url
+        })),
+        total: getTotalPrice(),
+        date: new Date().toISOString(),
+        status: 'pending'
+      }
+      
+      // Save order to localStorage
+      const existingOrders = JSON.parse(localStorage.getItem('orders') || '[]')
+      existingOrders.push(order)
+      localStorage.setItem('orders', JSON.stringify(existingOrders))
+      
+      // Send confirmation email
+      const emailResult = await sendOrderConfirmationEmail(order)
+      
+      if (emailResult.success) {
+        // Clear cart and show success
+        clearCart()
+        alert(
+          `Tak for din ordre, ${customerInfo.name}!\n\n` +
+          `Ordre ID: ${order.id}\n` +
+          `Total: ${formatPrice(order.total)}\n\n` +
+          `✅ En bekræftelsesmail er sendt til ${customerInfo.email}\n\n` +
+          `(Demo mode: Tjek konsollen for email-detaljer)`
+        )
+        navigate('/')
+      } else {
+        // Order saved but email failed
+        alert(
+          `Din ordre er modtaget (${order.id}), men der opstod en fejl ved afsendelse af bekræftelsesmail.\n\n` +
+          `Vi kontakter dig snarest på ${customerInfo.email}`
+        )
+        clearCart()
+        navigate('/')
+      }
+    } catch (error) {
+      console.error('Checkout error:', error)
+      alert('Der opstod en fejl under behandling af din ordre. Prøv venligst igen.')
+    } finally {
+      setIsProcessing(false)
     }
-    
-    // Save order to localStorage
-    const existingOrders = JSON.parse(localStorage.getItem('orders') || '[]')
-    existingOrders.push(order)
-    localStorage.setItem('orders', JSON.stringify(existingOrders))
-    
-    // Clear cart and show success
-    clearCart()
-    alert(`Tak for din ordre, ${customerInfo.name}!\n\nOrdre ID: ${order.id}\nTotal: ${formatPrice(order.total)}\n\nDu vil modtage en bekræftelse på ${customerInfo.email}`)
-    navigate('/')
   }
 
   if (cart.length === 0) {
@@ -177,11 +207,27 @@ function Cart() {
             </div>
 
             <div className="checkout-actions">
-              <button type="button" className="btn-secondary" onClick={() => setShowCheckoutForm(false)}>
+              <button 
+                type="button" 
+                className="btn-secondary" 
+                onClick={() => setShowCheckoutForm(false)}
+                disabled={isProcessing}
+              >
                 Annuller
               </button>
-              <button type="submit" className="btn-primary">
-                Bekræft ordre ({formatPrice(getTotalPrice())})
+              <button 
+                type="submit" 
+                className="btn-primary"
+                disabled={isProcessing}
+              >
+                {isProcessing ? (
+                  <>
+                    <span className="spinner"></span>
+                    Behandler...
+                  </>
+                ) : (
+                  `Bekræft ordre (${formatPrice(getTotalPrice())})`
+                )}
               </button>
             </div>
           </form>

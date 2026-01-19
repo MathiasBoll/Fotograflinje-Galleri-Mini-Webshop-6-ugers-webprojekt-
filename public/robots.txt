@@ -1,0 +1,18 @@
+# robots.txt for Media College Denmark Photography Gallery
+
+User-agent: *
+Allow: /
+Allow: /fotograf-print-viborg
+Allow: /photo/*
+Allow: /cart
+
+# Block admin and auth pages from search engines
+Disallow: /admin
+Disallow: /login
+Disallow: /forgot-password
+
+# Sitemap location
+Sitemap: https://photography.mediacollege.dk/sitemap.xml
+
+# Crawl delay (be nice to our server)
+Crawl-delay: 1

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 95">
+  <!-- Teal parallelogram -->
+  <path d="M115,22 L127,17 L134,47 L122,52 Z" fill="#0D7680"/>
+  
+  <!-- Orange parallelogram -->
+  <path d="M138,22 L150,17 L157,47 L145,52 Z" fill="#F7941D"/>
+  
+  <!-- Coral triangle -->
+  <path d="M164,17 L192,52 L164,52 Z" fill="#FF6B35"/>
+  
+  <!-- Text - White for dark mode -->
+  <text x="0" y="70" font-family="Arial, sans-serif" font-size="25" font-weight="bold" fill="#FFFFFF">Media College</text>
+  <text x="173" y="70" font-family="Arial, sans-serif" font-size="25" font-weight="300" fill="#FFFFFF">Denmark</text>
+</svg>

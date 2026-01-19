@@ -22,7 +22,7 @@ function EventSelector({ events, selectedEvent, onEventChange }) {
         {/* Map through events array and create option for each */}
         {events.map(event => (
           <option key={event._id} value={event._id}>
-            {event.title}
+            {event.title && event.title.trim() ? event.title : 'Unavngivet event'}
           </option>
         ))}
       </select>

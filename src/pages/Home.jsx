@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+import { Helmet } from 'react-helmet-async'
+import { useSearchParams } from 'react-router-dom'
 import { fetchPhotos, fetchEvents } from '../services/apiService'
 import EventSelector from '../components/EventSelector'
 import PhotoGrid from '../components/PhotoGrid'
@@ -9,6 +11,7 @@ import PhotoGrid from '../components/PhotoGrid'
  * Matches Figma design exactly
  */
 function Home() {
+  const [searchParams, setSearchParams] = useSearchParams()
   const [photos, setPhotos] = useState([])
   const [events, setEvents] = useState([])
   const [selectedEvent, setSelectedEvent] = useState('all')
@@ -23,6 +26,17 @@ function Home() {
     // Fetch events on component mount
     loadEvents()
   }, [])
+
+  useEffect(() => {
+    // Read query parameter and set selected event when events are loaded
+    const eventSlug = searchParams.get('event')
+    if (eventSlug && events.length > 0) {
+      const matchingEvent = events.find(e => e.slug === eventSlug)
+      if (matchingEvent) {
+        setSelectedEvent(matchingEvent._id)
+      }
+    }
+  }, [events, searchParams])
 
   useEffect(() => {
     // Fetch photos when selected event changes
@@ -72,6 +86,24 @@ function Home() {
       setPhotos([])
     } finally {
       setLoading(false)
+    }
+  }
+
+  // Handle event selection change and update query parameter
+  const handleEventChange = (eventId) => {
+    setSelectedEvent(eventId)
+    
+    // Update URL query parameter
+    if (eventId === 'all') {
+      // Remove event parameter if "all" is selected
+      searchParams.delete('event')
+      setSearchParams(searchParams)
+    } else {
+      // Find the event and set its slug in the URL
+      const event = events.find(e => e._id === eventId)
+      if (event && event.slug) {
+        setSearchParams({ event: event.slug })
+      }
     }
   }
 
@@ -134,12 +166,35 @@ function Home() {
   ))].sort()
 
   return (
-    <div className="home-page">
-      <header className="page-header">
-        <h1>Gallerier – Fotografuddannelsen</h1>
-        <h2 className="page-subtitle">Studentarbejder til salg</h2>
-        <p>Udvalgte værker fra vores fotografstuderende. Alle prints er af høj kvalitet og signeret af fotografen. Køb et fotografi og støt de kommende professionelle fotografer.</p>
-      </header>
+    <>
+      <Helmet>
+        <title>Fotogalleri – Køb Unikke Fotoprints | Media College Denmark</title>
+        <meta name="description" content="Udforsk vores kurerede galleri med over 100 kunstfotografier fra talentfulde fotografstuderende. Køb signerede prints i museumskvalitet og støt fremtidens fotografer." />
+        <link rel="canonical" href="https://photography.mediacollege.dk/" />
+        
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Fotogalleri – Køb Unikke Fotoprints" />
+        <meta property="og:description" content="Udforsk vores kurerede galleri med over 100 kunstfotografier fra talentfulde fotografstuderende." />
+        <meta property="og:url" content="https://photography.mediacollege.dk/" />
+        <meta property="og:site_name" content="Media College Denmark – Fotografuddannelsen" />
+        <meta property="og:image" content="https://mediacollege.dk/og-image.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Fotogalleri – Køb Unikke Fotoprints" />
+        <meta name="twitter:description" content="Udforsk vores kurerede galleri med over 100 kunstfotografier fra talentfulde fotografstuderende." />
+        <meta name="twitter:image" content="https://mediacollege.dk/og-image.jpg" />
+      </Helmet>
+
+      <div className="home-page">
+        <header className="page-header">
+          <h1>Gallerier – Fotografuddannelsen</h1>
+          <h2 className="page-subtitle">Studentarbejder til salg</h2>
+          <p>Udvalgte værker fra vores fotografstuderende. Alle prints er af høj kvalitet og signeret af fotografen. Køb et fotografi og støt de kommende professionelle fotografer.</p>
+        </header>
 
       {/* Featured Works Section */}
       {!loading && featuredPhotos.length > 0 && (
@@ -167,12 +222,14 @@ function Home() {
           {events.length > 0 && (
             <select 
               value={selectedEvent} 
-              onChange={(e) => setSelectedEvent(e.target.value)}
+              onChange={(e) => handleEventChange(e.target.value)}
               className="filter-select"
             >
               <option value="all">Event</option>
               {events.map(event => (
-                <option key={event._id} value={event._id}>{event.name}</option>
+                <option key={event._id} value={event._id}>
+                  {event.name && event.name.trim() ? event.name : 'Unavngivet event'}
+                </option>
               ))}
             </select>
           )}
@@ -229,7 +286,8 @@ function Home() {
       ) : (
         <PhotoGrid photos={sortedPhotos} />
       )}
-    </div>
+      </div>
+    </>
   )
 }
 

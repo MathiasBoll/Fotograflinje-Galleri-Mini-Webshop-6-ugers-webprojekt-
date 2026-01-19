@@ -51,6 +51,12 @@ function AdminLayout() {
             >
               Ordrer
             </NavLink>
+            <NavLink 
+              to="/admin/emails" 
+              className={({ isActive }) => `admin-nav-link ${isActive ? 'active' : ''}`}
+            >
+              Emails
+            </NavLink>
           </nav>
         </div>
       </header>

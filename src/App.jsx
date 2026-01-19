@@ -7,7 +7,11 @@ import { initializeDemoData } from './services/demoDataService'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
+import LandingPage from './pages/LandingPage'
 import PhotoDetail from './pages/PhotoDetail'
+import Events from './pages/Events'
+import EventDetail from './pages/EventDetail'
+import Kontakt from './pages/Kontakt'
 import Cart from './pages/Cart'
 import Login from './pages/Login'
 import ForgotPassword from './pages/ForgotPassword'
@@ -15,6 +19,7 @@ import AdminLayout from './layouts/AdminLayout'
 import AdminOrders from './pages/AdminOrders'
 import AdminEvents from './pages/AdminEvents'
 import AdminImages from './pages/AdminImages'
+import AdminEmails from './pages/AdminEmails'
 import ProtectedRoute from './components/ProtectedRoute'
 
 /**
@@ -50,6 +55,7 @@ function App() {
                 <Route path="billeder" element={<AdminImages />} />
                 <Route path="events" element={<AdminEvents />} />
                 <Route path="ordrer" element={<AdminOrders />} />
+                <Route path="emails" element={<AdminEmails />} />
               </Route>
 
               {/* Public Routes - Main Site Layout */}
@@ -59,6 +65,10 @@ function App() {
                   <main className="main-content">
                     <Routes>
                       <Route path="/" element={<Home />} />
+                      <Route path="/fotograf-print-viborg" element={<LandingPage />} />
+                      <Route path="/events" element={<Events />} />
+                      <Route path="/events/:slug" element={<EventDetail />} />
+                      <Route path="/kontakt" element={<Kontakt />} />
                       <Route path="/photo/:id" element={<PhotoDetail />} />
                       <Route path="/cart" element={<Cart />} />
                       <Route path="/login" element={<Login />} />
