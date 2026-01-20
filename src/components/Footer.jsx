@@ -10,7 +10,9 @@ function Footer() {
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-section">
-          <img src="/images/logo.png" alt="Media College Denmark" className="footer-logo" />
+          <Link to="/">
+            <img src="/images/logo.png" alt="Media College Denmark" className="footer-logo" />
+          </Link>
           <p>Uddanner fremtidens kreative fagfolk inden for fotografi, film og medieproduktion.</p>
         </div>
 
