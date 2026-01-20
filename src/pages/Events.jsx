@@ -155,7 +155,7 @@ function Events() {
 
       <div className="container">
         <header className="page-header">
-          <h1>Events & Udstillinger</h1>
+          <h1 className="rainbow-text">Events & Udstillinger</h1>
           <p className="page-subtitle">
             Oplev studenterarbejder og fotoudstillinger fra Media College Denmarks fotograflinje
           </p>

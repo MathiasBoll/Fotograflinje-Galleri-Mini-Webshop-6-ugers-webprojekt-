@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/PhotographerCarousel.css';
 
@@ -11,6 +11,59 @@ function PhotographerCarousel({ photos }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [carouselPhotos, setCarouselPhotos] = useState([]);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [dominantColor, setDominantColor] = useState('#000000');
+  const canvasRef = useRef(null);
+
+  // Extract dominant color from image
+  const extractDominantColor = (imgSrc) => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.crossOrigin = 'Anonymous';
+      img.onload = () => {
+        const canvas = canvasRef.current || document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Scale down for performance
+        canvas.width = 100;
+        canvas.height = 100;
+        
+        ctx.drawImage(img, 0, 0, 100, 100);
+        
+        try {
+          const imageData = ctx.getImageData(0, 0, 100, 100);
+          const data = imageData.data;
+          
+          let r = 0, g = 0, b = 0;
+          let count = 0;
+          
+          // Sample every 4th pixel for performance
+          for (let i = 0; i < data.length; i += 16) {
+            r += data[i];
+            g += data[i + 1];
+            b += data[i + 2];
+            count++;
+          }
+          
+          // Average color
+          r = Math.floor(r / count);
+          g = Math.floor(g / count);
+          b = Math.floor(b / count);
+          
+          // Darken the color for better background (30% darker)
+          r = Math.floor(r * 0.3);
+          g = Math.floor(g * 0.3);
+          b = Math.floor(b * 0.3);
+          
+          resolve(`rgb(${r}, ${g}, ${b})`);
+        } catch (e) {
+          // CORS or other error, fallback to black
+          resolve('#000000');
+        }
+      };
+      img.onerror = () => resolve('#000000');
+      img.src = imgSrc;
+    });
+  };
 
   // Get one random photo from each photographer on mount
   useEffect(() => {
@@ -42,6 +95,17 @@ function PhotographerCarousel({ photos }) {
     
     setCarouselPhotos(shuffled);
   }, [photos]);
+
+  // Update dominant color when current photo changes
+  useEffect(() => {
+    if (carouselPhotos.length === 0) return;
+    const currentPhoto = carouselPhotos[currentIndex];
+    if (currentPhoto) {
+      extractDominantColor(currentPhoto.url).then(color => {
+        setDominantColor(color);
+      });
+    }
+  }, [currentIndex, carouselPhotos]);
 
   // Auto-advance carousel every 4 seconds
   useEffect(() => {
@@ -89,10 +153,14 @@ function PhotographerCarousel({ photos }) {
 
   return (
     <div className="photographer-carousel">
-      <div className="carousel-container">
+      <canvas ref={canvasRef} style={{ display: 'none' }} />
+      <div className="carousel-container" style={{ backgroundColor: dominantColor }}>
         {/* Main Image */}
         <Link to={`/photo/${currentPhoto._id}`} className="carousel-image-link">
-          <div className={`carousel-image-wrapper ${isTransitioning ? 'transitioning' : ''}`}>
+          <div 
+            className={`carousel-image-wrapper ${isTransitioning ? 'transitioning' : ''}`}
+            style={{ '--bg-image': `url(${currentPhoto.url})` }}
+          >
             <img 
               src={currentPhoto.url} 
               alt={currentPhoto.title}

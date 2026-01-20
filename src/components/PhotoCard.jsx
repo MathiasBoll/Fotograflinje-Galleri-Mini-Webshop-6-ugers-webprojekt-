@@ -30,10 +30,10 @@ function PhotoCard({ photo, featured = false }) {
   const eventName = photo.eventName || photo.event || 'Generelt'
 
   return (
-    <div className={`photo-card ${featured ? 'photo-card-featured' : ''}`}>
+    <div className={`photo-card ${featured ? 'photo-card-featured card-rainbow' : ''}`}>
       {/* Photo thumbnail - use thumbUrl for smaller file size, fallback to full url */}
       <Link to={`/photo/${photo._id}`} className="photo-image">
-        {featured && <span className="featured-badge">Udvalgt værk</span>}
+        {featured && <span className="featured-badge rainbow-border">Udvalgt værk</span>}
         <img src={photo.thumbUrl || photo.url} alt={photo.originalFilename} />
       </Link>
       

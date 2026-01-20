@@ -5,6 +5,7 @@ import { fetchPhotos, fetchEvents } from '../services/apiService'
 import EventSelector from '../components/EventSelector'
 import PhotoGrid from '../components/PhotoGrid'
 import PhotographerCarousel from '../components/PhotographerCarousel'
+import HeroSection from '../components/HeroSection'
 
 /**
  * Home page component
@@ -190,6 +191,11 @@ function Home() {
         <meta name="twitter:image" content="https://mediacollege.dk/og-image.jpg" />
       </Helmet>
 
+      {/* Hero Section - Full Width */}
+      {!loading && photos.length > 0 && (
+        <HeroSection photos={photos} />
+      )}
+
       <div className="home-page">
         <header className="page-header">
           <h1>Gallerier – Fotografuddannelsen</h1>
@@ -200,7 +206,7 @@ function Home() {
       {/* Featured Works Section - Photographer Carousel */}
       {!loading && photos.length > 0 && (
         <section className="featured-section">
-          <h3 className="featured-title">Udvalgte værker</h3>
+          <h3 className="featured-title rainbow-underline">Udvalgte værker</h3>
           <p className="featured-subtitle">Kurateret af fotografiuddannelsens lærere. Disse værker fremhæver det bedste af årets studentproduktioner.</p>
           <PhotographerCarousel photos={photos} />
         </section>
