@@ -4,6 +4,9 @@
  * Integrates with DigitalOcean API for real data
  */
 
+// Import local photo data for 2025-2 collection
+import localPhotos2025_2 from '../data/photos2025-2.json'
+
 // API Configuration
 const API_BASE_URL = 'https://photobooth-lx7n9.ondigitalocean.app'
 
@@ -95,7 +98,9 @@ const MOCK_EVENTS = [
     name: "Firmajulefrokost - TechCorp",
     date: "2025-12-15",
     photoCount: 1
-  }
+  },
+  // Local event for 2025-2 collection
+  localPhotos2025_2.event
 ]
 
 /**
@@ -116,20 +121,42 @@ export async function fetchPhotos(eventSlug = null) {
     const response = await fetch(url)
     
     if (!response.ok) {
-      console.warn(`API returned status ${response.status}, using mock data`)
-      return MOCK_PHOTOS
+      console.warn(`API returned status ${response.status}, using local data`)
+      // Merge mock photos with local 2025-2 photos
+      const allPhotos = [...MOCK_PHOTOS, ...localPhotos2025_2.photos]
+      
+      // Filter by event slug if provided
+      if (eventSlug) {
+        return allPhotos.filter(photo => photo.eventSlug === eventSlug)
+      }
+      return allPhotos
     }
     
     const data = await response.json()
     console.log('API response:', data)
     console.log('Photos array sample:', JSON.stringify(data.data?.[0], null, 2))
-    // Extract the data array from the response object
-    return data.data || data
+    
+    // Merge API data with local 2025-2 photos
+    const apiPhotos = data.data || data
+    const allPhotos = [...apiPhotos, ...localPhotos2025_2.photos]
+    
+    // Filter by event slug if provided
+    if (eventSlug) {
+      return allPhotos.filter(photo => photo.eventSlug === eventSlug)
+    }
+    
+    return allPhotos
   } catch (error) {
     console.error('Error fetching photos:', error)
-    console.log('Using mock data as fallback')
-    // Return mock data as fallback
-    return MOCK_PHOTOS
+    console.log('Using local data as fallback')
+    // Merge mock photos with local 2025-2 photos
+    const allPhotos = [...MOCK_PHOTOS, ...localPhotos2025_2.photos]
+    
+    // Filter by event slug if provided
+    if (eventSlug) {
+      return allPhotos.filter(photo => photo.eventSlug === eventSlug)
+    }
+    return allPhotos
   }
 }
 
@@ -144,19 +171,27 @@ export async function fetchEvents() {
     const response = await fetch(url)
     
     if (!response.ok) {
-      console.warn(`API returned status ${response.status}, using mock data`)
+      console.warn(`API returned status ${response.status}, using local data`)
       return MOCK_EVENTS
     }
     
     const data = await response.json()
     console.log('Events API response:', data)
     console.log('Events array:', JSON.stringify(data.data, null, 2))
-    // Extract the data array from the response object
-    return data.data || data
+    
+    // Merge API events with local events
+    const apiEvents = data.data || data
+    const allEvents = [...apiEvents, localPhotos2025_2.event]
+    
+    // Remove duplicates by slug
+    const uniqueEvents = allEvents.filter((event, index, self) => 
+      index === self.findIndex(e => e.slug === event.slug)
+    )
+    
+    return uniqueEvents
   } catch (error) {
     console.error('Error fetching events:', error)
-    console.log('Using mock events as fallback')
-    // Return mock data as fallback
+    console.log('Using local events as fallback')
     return MOCK_EVENTS
   }
 }

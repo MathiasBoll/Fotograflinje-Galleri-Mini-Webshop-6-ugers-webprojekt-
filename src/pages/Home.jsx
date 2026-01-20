@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom'
 import { fetchPhotos, fetchEvents } from '../services/apiService'
 import EventSelector from '../components/EventSelector'
 import PhotoGrid from '../components/PhotoGrid'
+import PhotographerCarousel from '../components/PhotographerCarousel'
 
 /**
  * Home page component
@@ -196,12 +197,12 @@ function Home() {
           <p>Udvalgte værker fra vores fotografstuderende. Alle prints er af høj kvalitet og signeret af fotografen. Køb et fotografi og støt de kommende professionelle fotografer.</p>
         </header>
 
-      {/* Featured Works Section */}
-      {!loading && featuredPhotos.length > 0 && (
+      {/* Featured Works Section - Photographer Carousel */}
+      {!loading && photos.length > 0 && (
         <section className="featured-section">
           <h3 className="featured-title">Udvalgte værker</h3>
           <p className="featured-subtitle">Kurateret af fotografiuddannelsens lærere. Disse værker fremhæver det bedste af årets studentproduktioner.</p>
-          <PhotoGrid photos={featuredPhotos} featured={true} />
+          <PhotographerCarousel photos={photos} />
         </section>
       )}
 
