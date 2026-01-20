@@ -124,6 +124,8 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
+  border-bottom: 4px solid transparent;
+  border-image: linear-gradient(to right, #2E7D32, #FFC107, #FF5722) 1;
 }
 
 .navbar-container {
@@ -1672,6 +1674,8 @@ button:disabled {
   color: #ffffff;
   padding: var(--spacing-xxxl) var(--spacing-l) var(--spacing-l);
   margin-top: var(--spacing-xxxl);
+  border-top: 4px solid transparent;
+  border-image: linear-gradient(to right, #2E7D32, #FFC107, #FF5722) 1;
 }
 
 .footer-container {
@@ -2185,6 +2189,21 @@ button:disabled {
 
 .event-card:hover {
   box-shadow: var(--shadow-sm);
+}
+
+.event-card-image {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background: var(--color-background);
+}
+
+.event-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .event-card-icon {
@@ -3179,7 +3198,7 @@ button:disabled {
 
 .events-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   gap: var(--spacing-xl);
 }
 
@@ -3187,13 +3206,43 @@ button:disabled {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius-lg);
-  padding: var(--spacing-l);
+  padding: 0;
   transition: transform 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .event-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
+}
+
+.event-card-image-container {
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+  background: var(--color-background);
+  flex-shrink: 0;
+}
+
+.event-card-image-full {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.event-card:hover .event-card-image-full {
+  transform: scale(1.05);
+}
+
+.event-card-content {
+  padding: var(--spacing-l);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .event-card-header {
@@ -3219,6 +3268,18 @@ button:disabled {
 
 .event-card-title a:hover {
   color: var(--color-accent);
+}
+
+.event-card-excerpt {
+  margin-bottom: var(--spacing-m);
+  flex: 1;
+}
+
+.event-card-excerpt p {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  margin: 0;
 }
 
 .event-status {
@@ -3390,9 +3451,21 @@ button:disabled {
 }
 
 .event-detail-description {
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-base);
   line-height: 1.8;
-  color: var(--color-text-light);
+  color: var(--color-text);
+}
+
+.event-detail-description p {
+  margin-bottom: var(--spacing-l);
+}
+
+.event-detail-description .lead-paragraph {
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-xl);
+  line-height: 1.6;
 }
 
 .event-detail-info-grid {

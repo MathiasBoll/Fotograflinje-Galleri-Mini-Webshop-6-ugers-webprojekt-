@@ -199,9 +199,48 @@ function EventDetail() {
           <section className="event-detail-content">
             <div className="event-detail-intro">
               <h2>Om udstillingen</h2>
-              <p className="event-detail-description">
-                {event.description || `${eventName} er en fotoudstilling arrangeret af Media College Denmark som en del af fotografuddannelsens aktiviteter. Udstillingen viser studenterarbejder og fremhæver den kreative udvikling inden for fotografisk kunst.`}
-              </p>
+              <div className="event-detail-description">
+                {event.description ? (
+                  <>
+                    <p className="lead-paragraph">{event.description}</p>
+                    <p>
+                      {eventName} er en inspirerende fotoudstilling arrangeret af Media College Denmark 
+                      som en del af fotografuddannelsens innovative aktiviteter. Denne udstilling viser 
+                      studenterarbejder og fremhæver den kreative udvikling inden for fotografisk kunst.
+                    </p>
+                    <p>
+                      Gennem denne udstilling får besøgende mulighed for at opleve det omfattende 
+                      spektrum af fotografisk kunnen og kunstnerisk udtryk, som vores studerende 
+                      udvikler gennem deres uddannelse. Hvert billede fortæller en unik historie og 
+                      demonstrerer de tekniske færdigheder og kreative visioner, som er kendetegnende 
+                      for vores fotografuddannelse.
+                    </p>
+                    <p>
+                      Udstillingen er åben for alle og byder velkommen til både fotografientusiaster, 
+                      kunstelskere og alle, der er nysgerrige på den visuelle fortællekunst. 
+                      Kom og oplev, hvordan vores studerende fortolker verden gennem kameralinsen.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p className="lead-paragraph">
+                      {eventName} er en inspirerende fotoudstilling arrangeret af Media College Denmark.
+                    </p>
+                    <p>
+                      Denne udstilling viser studenterarbejder og fremhæver den kreative udvikling inden 
+                      for fotografisk kunst. Gennem udstillingen får besøgende mulighed for at opleve det 
+                      omfattende spektrum af fotografisk kunnen og kunstnerisk udtryk, som vores studerende 
+                      udvikler gennem deres uddannelse.
+                    </p>
+                    <p>
+                      Hvert billede fortæller en unik historie og demonstrerer de tekniske færdigheder og 
+                      kreative visioner, som er kendetegnende for vores fotografuddannelse. Udstillingen er 
+                      åben for alle og byder velkommen til både fotografientusiaster, kunstelskere og alle, 
+                      der er nysgerrige på den visuelle fortællekunst.
+                    </p>
+                  </>
+                )}
+              </div>
             </div>
 
             <div className="event-detail-info-grid">

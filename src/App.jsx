@@ -4,6 +4,7 @@ import { CartProvider } from './context/CartContext'
 import { AuthProvider } from './context/AuthContext'
 import { ThemeProvider } from './context/ThemeContext'
 import { initializeDemoData } from './services/demoDataService'
+import ScrollToTop from './components/ScrollToTop'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -41,6 +42,7 @@ function App() {
       <ThemeProvider>
         <AuthProvider>
           <CartProvider>
+            <ScrollToTop />
             <Routes>
               {/* Admin Routes - Separate Layout */}
               <Route
