@@ -1,5 +1,18 @@
 /* Global Styles for Photography Gallery & Webshop */
 
+/* Keyframes for rainbow animation */
+@keyframes rainbow-slide {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 /* CSS Reset and Base Styles */
 * {
   margin: 0;
@@ -124,8 +137,19 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  border-bottom: 4px solid transparent;
-  border-image: linear-gradient(to right, #2E7D32, #FFC107, #FF5722) 1;
+  position: relative;
+}
+
+.navbar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #2E7D32, #FFC107, #FF5722, #2E7D32, #FFC107, #FF5722);
+  background-size: 200% 100%;
+  animation: rainbow-slide 8s linear infinite;
 }
 
 .navbar-container {
@@ -1674,8 +1698,19 @@ button:disabled {
   color: #ffffff;
   padding: var(--spacing-xxxl) var(--spacing-l) var(--spacing-l);
   margin-top: var(--spacing-xxxl);
-  border-top: 4px solid transparent;
-  border-image: linear-gradient(to right, #2E7D32, #FFC107, #FF5722) 1;
+  position: relative;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #2E7D32, #FFC107, #FF5722, #2E7D32, #FFC107, #FF5722);
+  background-size: 200% 100%;
+  animation: rainbow-slide 8s linear infinite;
 }
 
 .footer-container {
