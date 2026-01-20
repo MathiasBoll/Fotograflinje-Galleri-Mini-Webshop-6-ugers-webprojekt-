@@ -1,4 +1,4 @@
-import { Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { Outlet, NavLink, useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
 
 function AdminLayout() {
@@ -22,6 +22,13 @@ function AdminLayout() {
       <header className="admin-header">
         <div className="container">
           <div className="admin-header-content">
+            <Link to="/" className="admin-logo-link">
+              <img 
+                src="/images/logo.png" 
+                alt="Media College Denmark" 
+                className="admin-logo"
+              />
+            </Link>
             <div className="admin-header-text">
               <h1 className="admin-title">Admin Panel</h1>
               <p className="admin-subtitle">Media College Denmark – Fotografuddannelsen</p>

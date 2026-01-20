@@ -1791,8 +1791,29 @@ button:disabled {
 .admin-header-content {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: var(--spacing-l);
+  gap: var(--spacing-l);
+}
+
+.admin-logo-link {
+  display: block;
+  flex-shrink: 0;
+  transition: opacity 0.2s;
+}
+
+.admin-logo-link:hover {
+  opacity: 0.8;
+}
+
+.admin-logo {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
+.admin-header-text {
+  flex: 1;
 }
 
 .admin-title {
