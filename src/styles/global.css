@@ -1389,6 +1389,8 @@ button:disabled {
   color: var(--color-text);
   text-align: center;
   font-weight: 700;
+  display: flex;
+  justify-content: center;
 }
 
 .featured-subtitle {

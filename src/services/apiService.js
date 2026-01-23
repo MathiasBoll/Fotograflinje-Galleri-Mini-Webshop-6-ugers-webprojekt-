@@ -122,8 +122,13 @@ export async function fetchPhotos(eventSlug = null) {
     
     if (!response.ok) {
       console.warn(`API returned status ${response.status}, using local data`)
-      // Merge mock photos with local 2025-2 photos
-      const allPhotos = [...MOCK_PHOTOS, ...localPhotos2025_2.photos]
+      // Normalize and merge mock photos with local 2025-2 photos
+      const normalizedMockPhotos = MOCK_PHOTOS.map(photo => ({
+        ...photo,
+        photographer: 'Ukendt Fotograf',
+        year: photo.date ? new Date(photo.date).getFullYear() : new Date().getFullYear()
+      }))
+      const allPhotos = [...normalizedMockPhotos, ...localPhotos2025_2.photos]
       
       // Filter by event slug if provided
       if (eventSlug) {
@@ -136,8 +141,14 @@ export async function fetchPhotos(eventSlug = null) {
     console.log('API response:', data)
     console.log('Photos array sample:', JSON.stringify(data.data?.[0], null, 2))
     
+    // Normalize API photos to ensure they have Ukendt Fotograf as photographer
+    const apiPhotos = (data.data || data).map(photo => ({
+      ...photo,
+      photographer: photo.photographer || 'Ukendt Fotograf',
+      year: photo.year || (photo.uploadedAt ? new Date(photo.uploadedAt).getFullYear() : new Date().getFullYear())
+    }))
+    
     // Merge API data with local 2025-2 photos
-    const apiPhotos = data.data || data
     const allPhotos = [...apiPhotos, ...localPhotos2025_2.photos]
     
     // Filter by event slug if provided
@@ -149,8 +160,13 @@ export async function fetchPhotos(eventSlug = null) {
   } catch (error) {
     console.error('Error fetching photos:', error)
     console.log('Using local data as fallback')
-    // Merge mock photos with local 2025-2 photos
-    const allPhotos = [...MOCK_PHOTOS, ...localPhotos2025_2.photos]
+    // Normalize and merge mock photos with local 2025-2 photos
+    const normalizedMockPhotos = MOCK_PHOTOS.map(photo => ({
+      ...photo,
+      photographer: 'Ukendt Fotograf',
+      year: photo.date ? new Date(photo.date).getFullYear() : new Date().getFullYear()
+    }))
+    const allPhotos = [...normalizedMockPhotos, ...localPhotos2025_2.photos]
     
     // Filter by event slug if provided
     if (eventSlug) {
