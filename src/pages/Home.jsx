@@ -130,8 +130,10 @@ function Home() {
     ? yearFilteredPhotos
     : yearFilteredPhotos.filter(photo => photo.photographer === selectedPhotographer)
 
-  // Hide "Ukendt Fotograf" by default to showcase student work
-  const showcasePhotos = photographerFilteredPhotos.filter(photo => photo.photographer !== 'Ukendt Fotograf')
+  // Hide "Ukendt Fotograf" by default unless explicitly selected
+  const showcasePhotos = selectedPhotographer === 'Ukendt Fotograf'
+    ? photographerFilteredPhotos
+    : photographerFilteredPhotos.filter(photo => photo.photographer !== 'Ukendt Fotograf')
 
   // Filter by search query
   const searchFilteredPhotos = searchQuery

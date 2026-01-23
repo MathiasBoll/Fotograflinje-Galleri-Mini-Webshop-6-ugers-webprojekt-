@@ -144,7 +144,7 @@ export async function fetchPhotos(eventSlug = null) {
     // Normalize API photos to ensure they have Ukendt Fotograf as photographer
     const apiPhotos = (data.data || data).map(photo => ({
       ...photo,
-      photographer: photo.photographer || 'Ukendt Fotograf',
+      photographer: 'Ukendt Fotograf',
       year: photo.year || (photo.uploadedAt ? new Date(photo.uploadedAt).getFullYear() : new Date().getFullYear())
     }))
     
