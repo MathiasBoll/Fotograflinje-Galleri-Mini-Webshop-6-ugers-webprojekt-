@@ -166,9 +166,6 @@ body {
   align-items: center;
   text-decoration: none;
   transition: all 0.2s;
-  background-color: white;
-  padding: 8px 12px;
-  border-radius: 4px;
 }
 
 .navbar-logo:hover {
@@ -184,9 +181,6 @@ body {
   height: 60px;
   width: auto;
   margin-bottom: var(--spacing-m);
-  background-color: white;
-  padding: 10px 14px;
-  border-radius: 4px;
 }
 
 .navbar-menu {

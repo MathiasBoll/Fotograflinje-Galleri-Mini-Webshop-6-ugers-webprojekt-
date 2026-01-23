@@ -23,7 +23,7 @@ function Navbar() {
       <div className="navbar-container">
         {/* Logo/brand - links to homepage */}
         <Link to="/" className="navbar-logo" onClick={() => window.scrollTo(0, 0)}>
-          <img src="/images/logo.png" alt="Media College Denmark" className="navbar-logo-img" />
+          <img src="/images/BW-logo-png.png" alt="Media College Denmark" className="navbar-logo-img" />
         </Link>
 
         <ul className="navbar-menu">
