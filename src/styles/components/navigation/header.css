@@ -1,0 +1,134 @@
+/* ============================================
+   HEADER / NAVBAR STYLES
+   ============================================
+   
+   This file contains all styles related to the main
+   navigation header/navbar component including:
+   - Main navbar container and layout
+   - Logo styles
+   - Navigation menu links  
+   - Cart badge
+   - Rainbow animation border effect
+   - Responsive navbar behavior
+   ============================================ */
+
+/* Main Navbar Container */
+.navbar {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  box-shadow: var(--shadow-md);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  position: relative;
+}
+
+/* Rainbow Border Animation at Bottom */
+.navbar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #2E7D32, #FFC107, #FF5722, #2E7D32, #FFC107, #FF5722);
+  background-size: 200% 100%;
+  animation: rainbow-slide 8s linear infinite;
+}
+
+/* Navbar Inner Container */
+.navbar-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--spacing-m) var(--spacing-l);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo Link */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.navbar-logo:hover {
+  transform: translateY(-1px);
+}
+
+/* Logo Image */
+.navbar-logo-img {
+  height: 45px;
+  width: auto;
+}
+
+/* Navigation Menu List */
+.navbar-menu {
+  display: flex;
+  list-style: none;
+  gap: var(--spacing-l);
+  align-items: center;
+}
+
+/* Menu Links */
+.navbar-menu a {
+  color: #ecf0f1;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.navbar-menu a:hover {
+  opacity: 0.8;
+}
+
+/* Cart Link Container (for badge positioning) */
+.cart-link {
+  position: relative;
+}
+
+/* Cart Badge (item count) */
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -12px;
+  background-color: var(--color-accent);
+  color: #ffffff;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+/* Button-styled Link (for logout, etc.) */
+.btn-link {
+  background: none;
+  border: none;
+  color: #ecf0f1;
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Tablet and smaller */
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-direction: column;
+    gap: var(--spacing-m);
+  }
+  
+  .navbar-menu {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-m);
+  }
+}

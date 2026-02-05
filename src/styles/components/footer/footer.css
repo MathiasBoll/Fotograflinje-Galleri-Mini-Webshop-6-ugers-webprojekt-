@@ -1,0 +1,139 @@
+/* ============================================
+   FOOTER STYLES
+   ============================================
+   
+   This file contains all styles related to the site footer including:
+   - Main footer container and layout
+   - Footer logo
+   - Footer content sections
+   - Social media links
+   - Footer navigation links
+   - Footer bottom (copyright area)
+   - Rainbow top border effect
+   ============================================ */
+
+/* Footer Logo (used in footer) */
+.footer-logo {
+  height: 60px;
+  width: auto;
+  margin-bottom: var(--spacing-m);
+}
+
+/* Main Footer Container */
+.footer {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  padding: var(--spacing-xxxl) var(--spacing-l) var(--spacing-l);
+  margin-top: var(--spacing-xxxl);
+  position: relative;
+}
+
+/* Rainbow Border Animation at Top */
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #2E7D32, #FFC107, #FF5722, #2E7D32, #FFC107, #FF5722);
+  background-size: 200% 100%;
+  animation: rainbow-slide 8s linear infinite;
+}
+
+/* Footer Content Grid */
+.footer-container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--spacing-xxxl);
+  margin-bottom: var(--spacing-xxl);
+}
+
+/* Footer Section (each column) */
+.footer-section h4 {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-m);
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.footer-section p {
+  color: var(--color-text-light);
+  line-height: 1.8;
+  margin-bottom: var(--spacing-s);
+  font-size: var(--font-size-base);
+}
+
+.footer-section a {
+  color: var(--color-text-light);
+  text-decoration: none;
+  transition: color var(--transition-speed);
+}
+
+.footer-section a:hover {
+  color: var(--color-text);
+}
+
+/* Footer Social Media Links */
+.footer-social {
+  display: flex;
+  gap: var(--spacing-m);
+  margin-top: var(--spacing-m);
+}
+
+.footer-social a {
+  color: #999999;
+  transition: all var(--transition-speed);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-social a:hover {
+  color: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+.footer-social svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Footer Navigation Links List */
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: var(--spacing-s);
+}
+
+.footer-links a {
+  color: #999999;
+  text-decoration: none;
+  transition: color var(--transition-speed);
+  font-size: var(--font-size-base);
+}
+
+.footer-links a:hover {
+  color: #ffffff;
+}
+
+/* Footer Bottom (Copyright area) */
+.footer-bottom {
+  border-top: 1px solid #333333;
+  padding-top: var(--spacing-l);
+  text-align: center;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+}
+
+.footer-bottom p {
+  color: #666666;
+  font-size: var(--font-size-sm);
+  margin: 0;
+}

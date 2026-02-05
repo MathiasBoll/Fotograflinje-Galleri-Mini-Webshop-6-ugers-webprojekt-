@@ -1,0 +1,579 @@
+/* ============================================
+   PHOTO GALLERY & EVENT STYLES
+   ============================================
+   
+   This file contains all styles related to photo galleries including:
+   - Photo grid layouts
+   - Photo cards
+   - Event selector
+   - Featured section
+   - Search and filters
+   - Results count
+   - Photo detail page
+   ============================================ */
+
+/* ============================================
+   EVENT SELECTOR
+   ============================================ */
+
+.event-selector {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-m);
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-m);
+  background-color: var(--color-surface);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+}
+
+.event-selector label {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.event-selector select {
+  padding: var(--spacing-s) var(--spacing-m);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-family: inherit;
+  flex: 1;
+  max-width: 400px;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  transition: all var(--transition-speed);
+  cursor: pointer;
+  appearance: auto;
+  -webkit-appearance: menulist;
+  -moz-appearance: menulist;
+}
+
+.event-selector select option {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  min-height: 2em;
+}
+
+[data-theme="dark"] .event-selector select {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  border-color: #333333;
+}
+
+[data-theme="dark"] .event-selector select option {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+.event-selector select:focus {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   PHOTO GRID
+   ============================================ */
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-l);
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 var(--spacing-l);
+}
+
+/* Photo Grid for Featured Section (larger cards) */
+.photo-grid-featured {
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+}
+
+/* ============================================
+   PHOTO CARD
+   ============================================ */
+
+.photo-card {
+  background-color: var(--color-surface);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  transition: all var(--transition-speed);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+}
+
+.photo-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Photo Image Container */
+.photo-image {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  position: relative;
+  background-color: #f5f5f5;
+  display: block;
+  text-decoration: none;
+}
+
+.photo-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Featured Badge (displayed on photo) */
+.featured-badge {
+  position: absolute;
+  top: var(--spacing-m);
+  left: var(--spacing-m);
+  background-color: var(--color-accent);
+  color: #ffffff;
+  padding: var(--spacing-xs) var(--spacing-m);
+  border-radius: 20px;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  z-index: 10;
+}
+
+/* Photo Card Content Section */
+.photo-info {
+  padding: var(--spacing-l);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.photo-title {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-text);
+  font-weight: 600;
+  line-height: 1.4;
+  opacity: 1;
+}
+
+.photo-meta {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-xs);
+  opacity: 1;
+}
+
+.photo-event {
+  color: var(--color-text-light);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-m);
+  opacity: 1;
+}
+
+.photo-date {
+  color: var(--color-text-light);
+  font-size: 0.85rem;
+  margin-bottom: var(--spacing-m);
+  opacity: 1;
+}
+
+/* Photo Card Footer (price and button) */
+.photo-footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-m);
+  margin-top: auto;
+}
+
+.photo-price {
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+/* Add to Cart Button */
+.btn-add-to-cart {
+  background-color: var(--color-accent);
+  color: #ffffff;
+  width: 100%;
+  padding: var(--spacing-m);
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--transition-speed);
+}
+
+.btn-add-to-cart:hover {
+  background-color: #e85a25;
+}
+
+/* ============================================
+   FEATURED SECTION
+   ============================================ */
+
+.featured-section {
+  margin-bottom: var(--spacing-xxxl);
+  padding: var(--spacing-xxxl) var(--spacing-l);
+  background: linear-gradient(to bottom, var(--color-surface), transparent);
+  border-radius: var(--border-radius-lg);
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.featured-title {
+  font-size: var(--font-size-3xl);
+  margin-bottom: var(--spacing-m);
+  color: var(--color-text);
+  text-align: center;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+}
+
+.featured-subtitle {
+  color: var(--color-text-light);
+  font-size: var(--font-size-lg);
+  text-align: center;
+  margin-bottom: var(--spacing-xxxl);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+/* ============================================
+   SEARCH CONTAINER
+   ============================================ */
+
+.search-container {
+  margin-bottom: var(--spacing-l);
+}
+
+.search-input {
+  width: 100%;
+  padding: var(--spacing-m);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-base);
+  font-family: inherit;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  transition: border-color var(--transition-speed);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.search-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* ============================================
+   FILTERS CONTAINER
+   ============================================ */
+
+.filters-container {
+  margin-bottom: var(--spacing-xl);
+}
+
+.filter-row {
+  display: flex;
+  gap: var(--spacing-m);
+  flex-wrap: wrap;
+}
+
+.filter-select {
+  padding: var(--spacing-m);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-base);
+  font-family: inherit;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: border-color var(--transition-speed);
+  min-width: 150px;
+  flex: 1;
+  appearance: auto;
+  -webkit-appearance: menulist;
+  -moz-appearance: menulist;
+}
+
+.filter-select option {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  min-height: 2em;
+}
+
+[data-theme="dark"] .filter-select {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  border-color: #333333;
+}
+
+[data-theme="dark"] .filter-select option {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.filter-select-sort {
+  margin-left: auto;
+  flex: 0 0 auto;
+}
+
+/* ============================================
+   RESULTS COUNT
+   ============================================ */
+
+.results-count {
+  color: var(--color-text-light);
+  font-size: 0.95rem;
+  margin-bottom: var(--spacing-m);
+  text-align: center;
+}
+
+/* ============================================
+   PHOTO DETAIL PAGE
+   ============================================ */
+
+/* Breadcrumbs Navigation */
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-s);
+  margin-bottom: var(--spacing-xl);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+}
+
+.breadcrumbs a {
+  color: var(--color-text-light);
+  text-decoration: none;
+  transition: color var(--transition-speed);
+}
+
+.breadcrumbs a:hover {
+  color: var(--color-text);
+}
+
+.breadcrumb-separator {
+  color: var(--color-text-muted);
+}
+
+/* Photo Detail Layout (Image + Content) */
+.photo-detail-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: var(--spacing-xxxl);
+  align-items: start;
+}
+
+/* Photo Detail Image Container */
+.photo-detail-image {
+  width: 100%;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  background-color: #f5f5f5;
+}
+
+.photo-detail-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Photo Detail Content (sticky sidebar) */
+.photo-detail-content {
+  position: sticky;
+  top: var(--spacing-xl);
+}
+
+.photo-detail-title {
+  font-size: var(--font-size-3xl);
+  font-weight: 600;
+  margin-bottom: var(--spacing-s);
+  color: var(--color-text);
+  line-height: 1.2;
+}
+
+.photo-detail-meta {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-base);
+  margin-bottom: var(--spacing-xs);
+}
+
+.photo-detail-category {
+  color: var(--color-text-light);
+  font-size: var(--font-size-base);
+  margin-bottom: var(--spacing-xl);
+}
+
+/* Photo Detail Sections */
+.photo-detail-section {
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-xl);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.photo-detail-section:last-of-type {
+  border-bottom: none;
+}
+
+.photo-detail-section h3 {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin-bottom: var(--spacing-m);
+  color: var(--color-text);
+}
+
+.photo-detail-section p {
+  color: var(--color-text-light);
+  line-height: 1.7;
+}
+
+/* Photographer Quote */
+.photographer-quote {
+  font-style: italic;
+  color: var(--color-text-light);
+  padding: var(--spacing-l);
+  background-color: var(--color-background);
+  border-left: 3px solid var(--color-accent);
+  margin: 0;
+  line-height: 1.7;
+}
+
+/* Print Type Selector */
+.print-type-selector {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-m);
+}
+
+.print-type-card {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-l);
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all var(--transition-speed);
+}
+
+.print-type-card:hover {
+  border-color: var(--color-accent);
+}
+
+.print-type-card.selected {
+  border-color: var(--color-accent);
+  background-color: rgba(255, 107, 53, 0.05);
+}
+
+.print-type-card input[type="radio"] {
+  margin-right: var(--spacing-m);
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.print-type-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+}
+
+.print-type-name {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.print-type-price {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* Price Summary */
+.photo-detail-price-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-l);
+  background-color: var(--color-background);
+  border-radius: var(--border-radius);
+  margin-bottom: var(--spacing-l);
+  font-size: var(--font-size-lg);
+}
+
+.price-amount {
+  font-weight: 600;
+  color: var(--color-text);
+  font-size: var(--font-size-xl);
+}
+
+/* Large Add Button */
+.btn-add-large {
+  width: 100%;
+  padding: var(--spacing-l);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+}
+
+/* Photo Detail Info Box */
+.photo-detail-info-box {
+  margin-top: var(--spacing-xl);
+  padding: var(--spacing-l);
+  background-color: var(--color-background);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-border);
+}
+
+.photo-detail-info-box h4 {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  margin-bottom: var(--spacing-s);
+  color: var(--color-text);
+}
+
+.photo-detail-info-box p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ============================================
+   RESPONSIVE GALLERY STYLES
+   ============================================ */
+
+@media (max-width: 768px) {
+  .photo-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+  
+  .event-selector {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .event-selector select {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .photo-grid {
+    grid-template-columns: 1fr;
+  }
+}

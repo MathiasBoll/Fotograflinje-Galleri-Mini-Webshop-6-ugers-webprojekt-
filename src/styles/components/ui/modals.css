@@ -1,0 +1,232 @@
+/* ============================================
+   MODAL STYLES
+   ============================================
+   
+   This file contains all modal/dialog component styles including:
+   - Modal overlay and backdrop
+   - Modal dialog containers
+   - Modal header and close button
+   - Modal body content
+   - Modal actions/buttons
+   - Order details modal
+   ============================================ */
+
+/* ============================================
+   MODAL OVERLAY & DIALOG
+   ============================================ */
+
+/* Modal Overlay (backdrop) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--spacing-l);
+}
+
+/* Modal Dialog Container */
+.modal-dialog {
+  background: #ffffff;
+  border-radius: var(--border-radius);
+  max-width: 500px;
+  width: 100%;
+  padding: var(--spacing-xl);
+  position: relative;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Large Modal Variant */
+.modal-dialog-large {
+  max-width: 600px;
+}
+
+/* ============================================
+   MODAL HEADER
+   ============================================ */
+
+/* Modal Close Button */
+.modal-close {
+  position: absolute;
+  top: var(--spacing-l);
+  right: var(--spacing-l);
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius);
+  transition: all 0.2s;
+}
+
+.modal-close:hover {
+  background: var(--color-background);
+  color: var(--color-primary);
+}
+
+/* Modal Header Section */
+.modal-header {
+  margin-bottom: var(--spacing-l);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-m);
+}
+
+/* Modal Icon */
+.modal-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Warning Icon Style */
+.modal-icon-warning {
+  background: #fff3cd;
+  color: #856404;
+}
+
+/* Modal Title */
+.modal-title {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  margin: 0;
+  color: var(--color-primary);
+}
+
+/* Modal Text/Description */
+.modal-text {
+  font-size: var(--font-size-base);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin: 0 0 var(--spacing-xl);
+}
+
+/* ============================================
+   MODAL BODY & CONTENT
+   ============================================ */
+
+/* Modal Body (scrollable content) */
+.modal-body {
+  max-height: 70vh;
+  overflow-y: auto;
+  margin-bottom: var(--spacing-l);
+}
+
+/* ============================================
+   ORDER DETAILS MODAL
+   ============================================ */
+
+/* Order Details Sections */
+.order-details-section {
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-l);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.order-details-section:last-child {
+  border-bottom: none;
+}
+
+.order-details-section h3 {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-m);
+}
+
+/* Order Info Grid */
+.order-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-m);
+}
+
+.order-info-grid strong {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-xs);
+}
+
+.order-info-grid p {
+  margin: 0;
+  color: var(--color-text);
+}
+
+/* Order Total Price */
+.order-total-price {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+/* Order Items List */
+.order-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-m);
+}
+
+.order-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-m);
+  background: var(--color-surface);
+  border-radius: var(--border-radius);
+}
+
+.order-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.order-item-info strong {
+  color: var(--color-primary);
+}
+
+.order-item-quantity {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.order-item-price {
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+/* ============================================
+   MODAL ACTIONS
+   ============================================ */
+
+.modal-actions {
+  display: flex;
+  gap: var(--spacing-m);
+  justify-content: flex-end;
+}
+
+/* ============================================
+   RESPONSIVE MODAL STYLES
+   ============================================ */
+
+@media (max-width: 768px) {
+  .modal-dialog {
+    margin: var(--spacing-l);
+  }
+}

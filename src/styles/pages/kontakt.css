@@ -1,0 +1,215 @@
+/* ============================================
+   CONTACT (KONTAKT) PAGE STYLES
+   ============================================
+   
+   This file contains all Kontakt page-specific styles including:
+   - Contact page header
+   - Contact sections
+   - Contact info cards
+   - Social media links (large format)
+   ============================================ */
+
+.kontakt-page {
+  padding: var(--spacing-xxxl) 0;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Contact Page Header */
+.kontakt-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xxxl);
+}
+
+.kontakt-header h1 {
+  font-size: var(--font-size-4xl);
+  color: var(--color-text);
+  margin-bottom: var(--spacing-m);
+  font-weight: 700;
+}
+
+.kontakt-header .lead {
+  font-size: var(--font-size-xl);
+  color: var(--color-text-light);
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Contact Content Area */
+.kontakt-content {
+  padding: 0 var(--spacing-l);
+}
+
+/* Contact Section */
+.kontakt-section {
+  margin-bottom: var(--spacing-xxxl);
+}
+
+.kontakt-section h2 {
+  font-size: var(--font-size-2xl);
+  color: var(--color-text);
+  margin-bottom: var(--spacing-l);
+  font-weight: 600;
+}
+
+.kontakt-section p {
+  font-size: var(--font-size-base);
+  color: var(--color-text-light);
+  line-height: 1.8;
+  margin-bottom: var(--spacing-m);
+}
+
+.kontakt-section ul {
+  margin: var(--spacing-l) 0;
+  padding-left: var(--spacing-xl);
+}
+
+.kontakt-section li {
+  font-size: var(--font-size-base);
+  color: var(--color-text-light);
+  line-height: 1.8;
+  margin-bottom: var(--spacing-s);
+}
+
+.kontakt-section a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color var(--transition-speed);
+}
+
+.kontakt-section a:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+/* ============================================
+   CONTACT INFO CARD
+   ============================================ */
+
+.contact-info-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-xl);
+  margin: var(--spacing-l) 0;
+}
+
+[data-theme="dark"] .contact-info-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.contact-item {
+  display: flex;
+  gap: var(--spacing-s);
+  margin-bottom: var(--spacing-m);
+  font-size: var(--font-size-base);
+  color: var(--color-text-light);
+}
+
+.contact-item:last-child {
+  margin-bottom: 0;
+}
+
+.contact-item strong {
+  color: var(--color-text);
+  min-width: 80px;
+}
+
+/* ============================================
+   SOCIAL LINKS (LARGE FORMAT)
+   ============================================ */
+
+.social-links-large {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-l);
+  margin: var(--spacing-l) 0;
+}
+
+.social-link-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-m);
+  padding: var(--spacing-xl);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  color: var(--color-text);
+  transition: all var(--transition-speed);
+}
+
+[data-theme="dark"] .social-link-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.social-link-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: var(--color-accent);
+}
+
+[data-theme="dark"] .social-link-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.social-link-card.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.social-link-card.disabled:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--color-border);
+}
+
+.social-link-card svg {
+  width: 32px;
+  height: 32px;
+  color: var(--color-accent);
+}
+
+.social-link-card span {
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+}
+
+/* ============================================
+   RESPONSIVE KONTAKT PAGE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .kontakt-page {
+    padding: var(--spacing-xxl) var(--spacing-l);
+  }
+
+  .kontakt-header h1 {
+    font-size: var(--font-size-3xl);
+  }
+
+  .kontakt-header .lead {
+    font-size: var(--font-size-lg);
+  }
+
+  .kontakt-section h2 {
+    font-size: var(--font-size-xl);
+  }
+
+  .social-links-large {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-item {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+
+  .contact-item strong {
+    min-width: unset;
+  }
+}

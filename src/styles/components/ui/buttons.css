@@ -1,0 +1,380 @@
+/* ============================================
+   BUTTONS & UI COMPONENTS
+   ============================================
+   
+   This file contains reusable UI component styles including:
+   - Button variants (primary, secondary, success, danger, etc.)
+   - Loading spinner
+   - Status badges
+   - Icon buttons
+   - Theme toggle button  
+   - Event pills
+   - View buttons
+   ============================================ */
+
+/* ============================================
+   BUTTON BASE & VARIANTS
+   ============================================ */
+
+/* Base Button Styles */
+button, .btn-primary, .btn-secondary {
+  padding: var(--spacing-m) var(--spacing-xl);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  border: none;
+  font-family: inherit;
+}
+
+/* Primary Button (accent color) */
+.btn-primary {
+  background-color: var(--color-accent);
+  color: #ffffff;
+  border: 1px solid var(--color-accent);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #e85a25;
+  border-color: #e85a25;
+}
+
+/* Success Button (green) */
+.btn-success {
+  background-color: #27ae60;
+  color: #ffffff;
+  border: 1px solid #27ae60;
+}
+
+.btn-success:hover:not(:disabled) {
+  background-color: #229954;
+  border-color: #229954;
+}
+
+/* Danger Button (red) */
+.btn-danger {
+  background-color: #e74c3c;
+  color: #ffffff;
+  border: 1px solid #e74c3c;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: #c0392b;
+  border-color: #c0392b;
+}
+
+/* Secondary Button (outlined) */
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  border-color: var(--color-text-light);
+}
+
+/* Outlined Button Variant */
+.btn-outlined {
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.btn-outlined:hover {
+  background: var(--color-surface);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* Large Button Size */
+.btn-large {
+  padding: var(--spacing-m) var(--spacing-xl);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-s);
+}
+
+/* Small Button Size */
+.btn-sm {
+  padding: var(--spacing-xs) var(--spacing-m);
+  font-size: var(--font-size-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  white-space: nowrap;
+}
+
+/* Full Width Button */
+.btn-full {
+  width: 100%;
+  padding: var(--spacing-m);
+}
+
+/* Disabled Button State */
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ============================================
+   LOADING SPINNER
+   ============================================ */
+
+/* Spinner Animation */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Spinner Element */
+.spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  margin-right: var(--spacing-xs);
+  vertical-align: middle;
+}
+
+/* Spinner in Primary Button */
+.btn-primary .spinner {
+  border-color: rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+}
+
+/* Spinner in Secondary Button */
+.btn-secondary .spinner {
+  border-color: rgba(0, 0, 0, 0.2);
+  border-top-color: var(--color-text);
+}
+
+/* ============================================
+   STATUS BADGES
+   ============================================ */
+
+/* Base Badge Styles */
+.badge, .status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+/* Success Badge (green) */
+.badge-success {
+  background: #d4edda;
+  color: #155724;
+}
+
+/* Warning Badge (yellow) */
+.badge-warning {
+  background: #fff3cd;
+  color: #856404;
+}
+
+/* Info Badge (blue) */
+.badge-info {
+  background: #d1ecf1;
+  color: #0c5460;
+}
+
+/* Danger Badge (red) */
+.badge-danger {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* Default Badge (gray) */
+.badge-default {
+  background: var(--color-background);
+  color: var(--color-text-muted);
+}
+
+/* Status Badge - Pending */
+.status-badge.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+/* Status Badge - Completed */
+.status-badge.completed {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+/* ============================================
+   EVENT STATUS BADGES
+   ============================================ */
+
+/* Event Status Base */
+.event-status {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Upcoming Event Status */
+.event-status-upcoming {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+/* Ongoing Event Status */
+.event-status-ongoing {
+  background: #e8f5e9;
+  color: #388e3c;
+}
+
+/* Past Event Status */
+.event-status-past {
+  background: #f5f5f5;
+  color: #757575;
+}
+
+/* Dark Mode Event Status Adjustments */
+[data-theme="dark"] .event-status-upcoming {
+  background: rgba(25, 118, 210, 0.2);
+  color: #64b5f6;
+}
+
+[data-theme="dark"] .event-status-ongoing {
+  background: rgba(56, 142, 60, 0.2);
+  color: #81c784;
+}
+
+[data-theme="dark"] .event-status-past {
+  background: rgba(117, 117, 117, 0.2);
+  color: #bdbdbd;
+}
+
+/* ============================================
+   EVENT PILL
+   ============================================ */
+
+.event-pill {
+  display: inline-block;
+  padding: 4px 12px;
+  background: var(--color-background);
+  border-radius: 12px;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+/* ============================================
+   ICON BUTTONS
+   ============================================ */
+
+/* Base Icon Button */
+.btn-icon {
+  padding: var(--spacing-xs);
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon:hover {
+  background: var(--color-background);
+  color: var(--color-accent);
+}
+
+/* Edit Icon Button (purple) */
+.btn-icon-edit {
+  color: #7c3aed;
+}
+
+.btn-icon-edit:hover {
+  background: #f3e8ff;
+  color: #7c3aed;
+}
+
+/* Delete Icon Button (red) */
+.btn-icon-delete:hover {
+  background: #fee;
+  color: #dc2626;
+}
+
+/* Email Icon Button (accent color) */
+.btn-icon-email {
+  color: var(--color-accent);
+}
+
+.btn-icon-email:hover {
+  background: rgba(255, 107, 53, 0.1);
+}
+
+/* ============================================
+   VIEW BUTTON
+   ============================================ */
+
+.btn-view {
+  background-color: #6c757d;
+  color: var(--color-white);
+  padding: var(--spacing-s) var(--spacing-m);
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btn-view:hover {
+  background-color: #5a6268;
+}
+
+/* ============================================
+   THEME TOGGLE BUTTON
+   ============================================ */
+
+.theme-toggle {
+  background-color: transparent;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all var(--transition-speed);
+  padding: 0;
+}
+
+.theme-toggle:hover {
+  background-color: var(--color-surface);
+  transform: rotate(20deg);
+  border-color: var(--color-secondary);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95) rotate(20deg);
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+  .btn-large {
+    padding: var(--spacing-m) var(--spacing-l);
+    font-size: var(--font-size-base);
+  }
+}

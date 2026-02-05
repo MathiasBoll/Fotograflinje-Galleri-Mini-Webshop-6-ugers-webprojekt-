@@ -1,0 +1,66 @@
+/* ============================================
+   LAYOUT STYLES
+   ============================================
+   
+   This file contains base layout styles including:
+   - App container
+   - Main content area
+   - Container (max-width wrapper)
+   - Page wrapper
+   ============================================ */
+
+/* ============================================
+   APP CONTAINER
+   ============================================ */
+
+/* Main App Container - Sets up flex layout for sticky footer */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================
+   MAIN CONTENT AREA
+   ============================================ */
+
+/* Main Content Wrapper */
+.main-content {
+  flex: 1;
+  max-width: var(--container-max-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--spacing-xxxl) var(--spacing-l);
+}
+
+/* ============================================
+   CONTAINER (MAX-WIDTH WRAPPER)
+   ============================================ */
+
+/* Reusable Max-Width Container */
+.container {
+  max-width: var(--container-max-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--spacing-l);
+}
+
+/* ============================================
+   PAGE WRAPPER
+   ============================================ */
+
+/* Page Wrapper for Consistent Spacing */
+.page {
+  padding: var(--spacing-xl) 0;
+  min-height: calc(100vh - 200px);
+}
+
+/* ============================================
+   RESPONSIVE LAYOUT ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: var(--spacing-m);
+  }
+}
