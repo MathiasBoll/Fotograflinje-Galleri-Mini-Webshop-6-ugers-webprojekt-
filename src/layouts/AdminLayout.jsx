@@ -24,7 +24,7 @@ function AdminLayout() {
           <div className="admin-header-content">
             <Link to="/" className="admin-logo-link">
               <img 
-                src="/images/logo.png" 
+                src="/images/BW-logo-png.png" 
                 alt="Media College Denmark" 
                 className="admin-logo"
               />
