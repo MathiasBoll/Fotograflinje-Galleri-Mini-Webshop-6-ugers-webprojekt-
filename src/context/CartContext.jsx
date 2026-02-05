@@ -83,6 +83,22 @@ export function CartProvider({ children }) {
   }
 
   /**
+   * Update print type and price for a specific item
+   * @param {string} photoId - ID of photo to update
+   * @param {string} printType - New print type name
+   * @param {number} price - New price for the print type
+   */
+  const updatePrintType = (photoId, printType, price) => {
+    setCart(prevCart =>
+      prevCart.map(item =>
+        (item._id || item.id) === photoId
+          ? { ...item, printType, price }
+          : item
+      )
+    )
+  }
+
+  /**
    * Clear all items from cart
    * Used after checkout or when user wants to start over
    */
@@ -110,6 +126,7 @@ export function CartProvider({ children }) {
     addToCart,         // Function to add items
     removeFromCart,    // Function to remove items
     updateQuantity,    // Function to update item quantity
+    updatePrintType,   // Function to update print type and price
     clearCart,         // Function to empty cart
     getTotalPrice      // Function to calculate total
   }

@@ -12,7 +12,14 @@ import { formatPrice } from '../utils/formatPrice'
  */
 function CartItem({ item }) {
   // Get cart management functions from context
-  const { removeFromCart, updateQuantity } = useContext(CartContext)
+  const { removeFromCart, updateQuantity, updatePrintType } = useContext(CartContext)
+  
+  // Available print types with prices
+  const printTypes = [
+    { id: 'digital', name: 'Digital download', price: 299 },
+    { id: 'a4', name: 'Print A4', price: 449 },
+    { id: 'a2', name: 'Print A2', price: 799 }
+  ]
 
   // Handle both MongoDB (_id) and mock data (id) formats
   const itemId = item._id || item.id
@@ -31,6 +38,17 @@ function CartItem({ item }) {
     }
   }
 
+  /**
+   * Handle print type change
+   * @param {Event} e - Change event from select
+   */
+  const handlePrintTypeChange = (e) => {
+    const selectedType = printTypes.find(pt => pt.name === e.target.value)
+    if (selectedType) {
+      updatePrintType(itemId, selectedType.name, selectedType.price)
+    }
+  }
+
   return (
     <div className="cart-item">
       {/* Thumbnail image with fallback chain: thumbUrl → thumbnail → url */}
@@ -39,12 +57,26 @@ function CartItem({ item }) {
       <div className="cart-item-details">
         {/* Display photo title/filename */}
         <h3>{item.originalFilename || item.title}</h3>
-        {/* Show photographer and event if available */}
-        <p className="cart-item-meta">
-          {item.photographer && <span>{item.photographer}</span>}
-          {item.photographer && item.printType && <span> · </span>}
-          {item.printType && <span>{item.printType}</span>}
-        </p>
+        {/* Show photographer if available */}
+        {item.photographer && (
+          <p className="cart-item-meta">{item.photographer}</p>
+        )}
+        {/* Print type selector */}
+        <div className="cart-item-print-selector">
+          <label htmlFor={`print-type-${itemId}`}>Type:</label>
+          <select
+            id={`print-type-${itemId}`}
+            value={item.printType || 'Digital download'}
+            onChange={handlePrintTypeChange}
+            className="print-type-select"
+          >
+            {printTypes.map(type => (
+              <option key={type.id} value={type.name}>
+                {type.name} - {formatPrice(type.price)}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       {/* Quantity controls: - / number / + */}

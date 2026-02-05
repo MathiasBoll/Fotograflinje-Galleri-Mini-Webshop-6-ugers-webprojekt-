@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CartContext } from '../context/CartContext'
 import { formatPrice } from '../utils/formatPrice'
@@ -15,13 +15,22 @@ import { formatPrice } from '../utils/formatPrice'
 function PhotoCard({ photo, featured = false }) {
   // Get addToCart function from CartContext
   const { addToCart } = useContext(CartContext)
+  
+  // State for button animation
+  const [isAdding, setIsAdding] = useState(false)
 
   /**
    * Add this photo to the shopping cart
    * Called when user clicks "Tilføj til kurv" button
    */
   const handleAddToCart = () => {
+    setIsAdding(true)
     addToCart(photo)
+    
+    // Reset animation after it completes
+    setTimeout(() => {
+      setIsAdding(false)
+    }, 1000)
   }
 
   // Extract photographer name and year from photo data
@@ -53,10 +62,17 @@ function PhotoCard({ photo, featured = false }) {
           
           {/* Add to cart button */}
           <button 
-            className="btn-add-to-cart"
+            className={`btn-add-to-cart ${isAdding ? 'adding' : ''}`}
             onClick={handleAddToCart}
+            disabled={isAdding}
           >
-            Tilføj til kurv
+            {isAdding ? (
+              <>
+                <span className="checkmark">✓</span> Tilføjet!
+              </>
+            ) : (
+              'Tilføj til kurv'
+            )}
           </button>
         </div>
       </div>

@@ -17,6 +17,7 @@ function PhotoDetail() {
   const [photo, setPhoto] = useState(null)
   const [loading, setLoading] = useState(true)
   const [selectedPrintType, setSelectedPrintType] = useState('digital')
+  const [isAdding, setIsAdding] = useState(false)
   
   const printTypes = [
     { id: 'digital', name: 'Digital download', price: 299 },
@@ -46,6 +47,7 @@ function PhotoDetail() {
   }
 
   const handleAddToCart = () => {
+    setIsAdding(true)
     const selectedPrint = printTypes.find(p => p.id === selectedPrintType)
     const cartItem = {
       ...photo,
@@ -53,6 +55,11 @@ function PhotoDetail() {
       price: selectedPrint.price
     }
     addToCart(cartItem)
+    
+    // Reset animation after it completes
+    setTimeout(() => {
+      setIsAdding(false)
+    }, 1000)
   }
 
   if (loading) {
@@ -184,8 +191,18 @@ function PhotoDetail() {
             <span className="price-amount">{formatPrice(selectedPrint.price)}</span>
           </div>
 
-          <button className="btn-primary btn-add-large" onClick={handleAddToCart}>
-            Tilføj til kurv – {formatPrice(selectedPrint.price)}
+          <button 
+            className={`btn-primary btn-add-large ${isAdding ? 'adding' : ''}`}
+            onClick={handleAddToCart}
+            disabled={isAdding}
+          >
+            {isAdding ? (
+              <>
+                <span className="checkmark">✓</span> Tilføjet til kurv!
+              </>
+            ) : (
+              `Tilføj til kurv – ${formatPrice(selectedPrint.price)}`
+            )}
           </button>
 
           <div className="photo-detail-info-box">

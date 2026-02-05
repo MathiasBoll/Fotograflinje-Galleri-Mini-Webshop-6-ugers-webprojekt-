@@ -203,11 +203,30 @@
   border-radius: var(--border-radius);
   font-weight: 500;
   cursor: pointer;
-  transition: background-color var(--transition-speed);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.btn-add-to-cart:hover {
+.btn-add-to-cart:hover:not(:disabled) {
   background-color: #e85a25;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
+.btn-add-to-cart:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* Adding state animation */
+.btn-add-to-cart.adding {
+  background-color: #27ae60;
+  transform: scale(0.95);
+  animation: successPulse 0.6s ease;
+}
+
+.btn-add-to-cart.adding:hover {
+  background-color: #27ae60;
 }
 
 /* ============================================

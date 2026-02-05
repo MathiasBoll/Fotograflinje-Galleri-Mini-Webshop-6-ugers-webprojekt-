@@ -149,6 +149,42 @@
   font-size: var(--font-size-sm);
 }
 
+/* Print Type Selector */
+.cart-item-print-selector {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-s);
+  margin-top: var(--spacing-s);
+}
+
+.cart-item-print-selector label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  font-weight: 500;
+}
+
+.print-type-select {
+  flex: 1;
+  padding: var(--spacing-xs) var(--spacing-s);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  outline: none;
+}
+
+.print-type-select:hover {
+  border-color: var(--color-accent);
+}
+
+.print-type-select:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
 /* Cart Item Quantity Controls */
 .cart-item-quantity {
   display: flex;
