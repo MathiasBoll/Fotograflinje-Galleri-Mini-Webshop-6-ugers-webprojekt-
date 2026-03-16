@@ -44,6 +44,8 @@
 
 /* Gallery/Photos */
 @import './components/gallery/gallery.css';
+@import './HeroSection.css';
+@import './PhotographerCarousel.css';
 
 /* ============================================
    4. PAGE STYLES

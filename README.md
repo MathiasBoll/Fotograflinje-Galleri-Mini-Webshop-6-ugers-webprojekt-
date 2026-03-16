@@ -15,6 +15,17 @@ Et 6-ugers webprojekt der kombinerer JavaScript interaktivitet, indkøbskurv, CR
 
 ---
 
+## Hurtigt overblik til bedommelse
+
+Projektet er sat op med en tydelig hoved-indgang for bade JavaScript og CSS, sa det er hurtigt at gennemga:
+
+- JavaScript flow: index.html -> src/main.jsx -> src/App.jsx -> komponenter/sider
+- CSS flow: src/main.jsx -> src/styles/global.css -> alle CSS moduler via @import
+
+Det betyder at laerer kan starte i fa filer og derefter folge den samlede struktur.
+
+---
+
 ## 🔗 Links
 
 - **GitHub:** https://github.com/MathiasBoll/Fotograflinje-Galleri-Mini-Webshop-6-ugers-webprojekt-
